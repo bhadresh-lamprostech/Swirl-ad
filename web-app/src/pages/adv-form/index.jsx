@@ -4,7 +4,7 @@ import styles from "@/styles/AdvertiserForm.module.scss";
 import axios from 'axios';
 
 function AdvForm() {
-  const formData = useState({
+  const [formData, setFormData] = useState({
     orgUsername: null,
     orgName: null,
     orgLogo: null,
@@ -15,7 +15,7 @@ function AdvForm() {
     orgCategory: null
   });
 
-  const [countries, setCountries] = useState([ ]);
+  const [countries, setCountries] = useState([]);
 
   useEffect(() => {
     axios.get("https://countriesnow.space/api/v0.1/countries/")
@@ -29,34 +29,80 @@ function AdvForm() {
       })
   },[]);
 
+  useEffect(() => {
+    console.log(formData);
+  },[formData])
+
+  const submitData = () => {
+
+  }
+
   return (
     <div className={styles.AdvFormMain}>
       <div className={styles.advFormInner}>
         <h1 className={styles.advFormHeader}>Complete the registration</h1>
         <div id={styles.firstDiv}>
           <label htmlFor='username'>Username</label>
-          <input type="text" id="username" />
+          <input 
+            type="text" 
+            id="username" 
+            onChange={
+              (e)=>{
+                setFormData({...formData,orgUsername:e.target.value});
+              }
+            }
+          />
         </div>
         <div>
           <label htmlFor='logo'>Logo</label>
-          <input type="file" id="logo" />
+          <input 
+            type="file" 
+            id="logo"
+            onChange={
+              (e)=>{
+                setFormData({...formData, orgLogo:e.target.files[0] });
+              }
+            } 
+          />
         </div>
         <div>
           <label htmlFor='orgname'>Name</label>
-          <input type="text" id="orgname" />
+          <input 
+            type="text" 
+            id="orgname"
+            onChange={
+              (e)=>{
+                setFormData({...formData, orgName:e.target.value});
+              }
+            } 
+          />
         </div>
         <div>
           <label htmlFor='orgdescription'>Description</label>
-          <textarea id="orgdescription"></textarea>
+          <textarea 
+            id="orgdescription"
+            onChange={
+              (e)=>{
+                setFormData({...formData, orgDescription:e.target.value});
+              }
+            }
+          ></textarea>
         </div>
         <div>
           <label htmlFor='orgorigin'>Country of Origin</label>
-          <select id="orgorigin">
+          <select 
+            id="orgorigin"
+            onChange={
+              (e)=>{
+                setFormData({...formData, orgOrigin:e.target.value});
+              }
+            }  
+          >
             {
               countries.length > 0
               ?
-                countries.map((i)=>{ 
-                  return(<option value={i} >{i}</option>)
+                countries.map((i, index)=>{ 
+                  return(<option value={i} key={index} >{i}</option>)
                 })
               :
                 null
@@ -65,19 +111,43 @@ function AdvForm() {
         </div>
         <div>
           <label htmlFor='orgstrength'>Employee Strength</label>
-          <input type="number" id="orgstrength" />
+          <input 
+            type="number" 
+            id="orgstrength"
+            onChange={
+              (e)=>{
+                setFormData({...formData,orgEmpStrength:e.target.value});
+              }
+            } 
+          />
         </div>
         <div>
           <label htmlFor='orgfounder'>Founder Name</label>
-          <input type="number" id="orgfounder" />
+          <input 
+            type="text" 
+            id="orgfounder"
+            onChange={
+              (e)=>{
+                setFormData({...formData,orgFounder:e.target.value});
+              }
+            } 
+          />
         </div>
         <div>
           <label htmlFor='orgcategory'>Firm Category</label>
-          <input type="text" id="orgcategory" />
+          <input 
+            type="text" 
+            id="orgcategory"
+            onChange={
+              (e)=>{
+                setFormData({...formData,orgCategory:e.target.value});
+              }
+           } 
+          />
         </div>
         <div>
           <label htmlFor='SubmitForm'></label>
-          <input type="button" id="SubmitForm" className={styles.submitForm} value="Add details"/>
+          <input type="button" id="SubmitForm" className={styles.submitForm} onClick={submitData()} value="Add details"/>
         </div>
       </div>
     </div>
