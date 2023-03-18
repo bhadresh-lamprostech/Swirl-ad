@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import styles from "@/styles/AdvertiserForm.module.scss";
+import axios from 'axios';
 
 function AdvForm() {
   const formData = useState({
@@ -12,7 +13,22 @@ function AdvForm() {
     orgEmpStrength: null,
     orgFounder: null,
     orgCategory: null
-  })
+  });
+
+  const [countries, setCountries] = useState([ ]);
+
+  useEffect(() => {
+    axios.get("https://countriesnow.space/api/v0.1/countries/")
+    .then((res)=>{
+        let data = res.data.data;
+        let country = data.map((d) => {
+          return d.country;
+        })
+        setCountries(country);
+
+      })
+  },[]);
+
   return (
     <div className={styles.AdvFormMain}>
       <div className={styles.advFormInner}>
@@ -36,9 +52,15 @@ function AdvForm() {
         <div>
           <label htmlFor='orgorigin'>Country of Origin</label>
           <select id="orgorigin">
-            <option>India</option>
-            <option>China</option>
-            <option>Mexico</option>
+            {
+              countries.length > 0
+              ?
+                countries.map((i)=>{ 
+                  return(<option value={i} >{i}</option>)
+                })
+              :
+                null
+              }
           </select>
         </div>
         <div>
@@ -62,4 +84,4 @@ function AdvForm() {
   )
 }
 
-export default AdvForm
+export default AdvForm;
