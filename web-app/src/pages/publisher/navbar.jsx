@@ -1,12 +1,12 @@
 import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from "@/styles/Advertiser.module.scss";
+import styles from "@/styles/Publisher.module.scss";
 
 function Navbar() {
   return (
     <nav>
-      <div className={styles.advNavMain}>
+      <div className={styles.pubNavMain}>
         <div><Image src={"/swirl-logo2.png"} width={40} height={40} /></div>
         <div>
           <ul>

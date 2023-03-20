@@ -7,8 +7,10 @@ function Navbar() {
   return (
     <nav>
       <div className={styles.advNavMain}>
-        <div><Image src={"/swirl-logo2.png"} width={40} height={40} /></div>
-        <div>
+        <div className={styles.advNavLeft}>
+          <Image src={"/swirl-logo2.png"} width={40} height={40} />
+        </div>
+        <div className={styles.advNavRight}>
           <ul>
             <li>
               <Link href="/advertiser/">Dashboard</Link>
