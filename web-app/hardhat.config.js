@@ -18,7 +18,7 @@ module.exports = {
       chainId: 80001,
       url: "https://matic-mumbai.chainstacklabs.com", // Your RPC url
       accounts: [
-        "a5be2498a1cf97b0bf2cae82f324a0305df11475f3163cf5f90576278e46f08d",
+        ,
       ], // yout private key
     },
     // goerli: {

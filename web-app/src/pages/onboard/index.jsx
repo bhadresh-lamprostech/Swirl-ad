@@ -3,19 +3,13 @@ import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { ethers } from "ethers";
+import { Web3Storage } from "web3.storage";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
-
-const Swirl_address = "0xaC4561e17A72e4a059b98A9E034Ee502E1F6F6ba";
+const Swirl_address = "0x739f7B3D37328809249ECe3fd6f3f88889982afE";
 
 export default function onBoard() {
   const { isConnected, address } = useAccount();
   const Route = useRouter();
-
-  useEffect(() => {
-    if (!isConnected) Route.push("/");
-  }, [isConnected]);
-
-  // const createAdv = new.ethers.Contract(Swirl_address, Swirl.abi, signer)
 
   const getContract = async () => {
     try {
@@ -44,31 +38,36 @@ export default function onBoard() {
       console.log(error);
     }
   };
-  // console.log(address)
 
-  const createAdv = async () => {
-    try {
-      console.log(address);
+  useEffect(() => {
+    if (!isConnected) Route.push("/");
+  }, [isConnected]);
+  //checks if user already registerd as a advertiser if yes then redirected on advertisers page
+  useEffect(() => {
+    (async () => {
       const contract = await getContract();
-      const tx = await contract.createAdvertiser(address);
-      await tx.wait();
-      console.log(tx);
-      Route.push("/adv-form");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const createPub = async () => {
-    try {
+      const getAdv = await contract.getAdvertiser(address);
+      if (getAdv[1] === address) {
+        Route.push("/advertiser");
+      } else {
+        null;
+      }
+      console.log(getAdv);
+    })();
+  }, []);
+  //checks if user already registerd as a Publisher if yes then redirected on publishers page
+  useEffect(() => {
+    (async () => {
       const contract = await getContract();
-      const tx = await contract.createPublisher(address);
-      await tx.wait();
-      console.log(tx);
-    } catch (error) {
-      Route.push("/pub-form");
-    }
-  };
+      const getPub = await contract.getPublisher(address);
+      if (getPub[1] === address) {
+        Route.push("/publisher");
+      } else {
+        null;
+      }
+      console.log(getPub);
+    })();
+  }, []);
 
   return (
     <>
@@ -81,8 +80,7 @@ export default function onBoard() {
             <div
               className={styles.advCard}
               onClick={() => {
-                // Route.push("/adv-form");
-                createAdv();
+                Route.push("/adv-form");
               }}
             >
               ADVERTISER
@@ -92,8 +90,7 @@ export default function onBoard() {
             <div
               className={styles.pubCard}
               onClick={() => {
-                // Route.push("/pub-form");
-                createPub();
+                Route.push("/pub-form");
               }}
             >
               PUBLISHER

@@ -70,6 +70,76 @@
       "artifacts": [
         "Swirl"
       ]
+    },
+    "/home/bhadresh/Desktop/Swirl-ad/web-app/contracts/Lock.sol": {
+      "lastModificationDate": 1679158856382,
+      "contentHash": "ae66265769cc28ebdaa34881df95bc5e",
+      "sourceName": "contracts/Lock.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "Lock"
+      ]
+    },
+    "/home/bhadresh/Desktop/Swirl-ad/web-app/contracts/Swirl.sol": {
+      "lastModificationDate": 1679159235555,
+      "contentHash": "4b89a1ad0a087a4ff744843e2060dc4f",
+      "sourceName": "contracts/Swirl.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Swirl"
+      ]
     }
   }
 }

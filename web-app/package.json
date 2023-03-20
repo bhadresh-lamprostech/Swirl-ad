@@ -19,7 +19,8 @@
     "react-dom": "18.2.0",
     "react-toastify": "^9.1.1",
     "sass": "^1.59.3",
-    "wagmi": "^0.12.1"
+    "wagmi": "^0.12.1",
+    "web3.storage": "^4.5.4"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
