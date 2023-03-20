@@ -2,6 +2,13 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import styles from "@/styles/AdvertiserForm.module.scss";
 import axios from 'axios';
+import { useAccount } from "wagmi";
+import { ethers } from "ethers";
+import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
+
+
+const Swirl_address = "0x739f7B3D37328809249ECe3fd6f3f88889982afE";
+
 
 function PubForm() {
   const [formData, setFormData] = useState({
@@ -14,7 +21,7 @@ function PubForm() {
     orgFounder: null,
     orgCategory: null
   });
-
+   const { address } = useAccount();
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
@@ -33,9 +40,60 @@ function PubForm() {
     console.log(formData);
   },[formData])
 
-  const submitData = () => {
+  const getContract = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+        if (chainId === 80001) {
+          const contract = new ethers.Contract(
+            Swirl_address,
+            Swirl.abi,
+            signer
+          );
+          return contract;
+        } else {
+          alert("Please connect to the polygon Mumbai testnet Network!");
+        }
+      }
+      console.log(signer);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // console.log(address)
 
-  }
+  const submitData = async () => {
+    try {
+      
+      const contract = await getContract();
+      const tx = await contract.createPublisher(
+        address,
+        formData.orgUsername,
+        formData.orgName,
+        formData.orgLogo,
+        formData.orgDescription,
+        formData.orgOrigin,
+        formData.orgEmpStrength,
+        formData.orgFounder,
+        formData.orgCategory
+      );
+      await tx.wait();
+      console.log(tx);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const submitData = () => {
+
+  // }
 
   return (
     <div className={styles.AdvFormMain}>
@@ -147,7 +205,7 @@ function PubForm() {
         </div>
         <div>
           <label htmlFor='SubmitForm'></label>
-          <input type="button" id="SubmitForm" className={styles.submitForm} onClick={submitData()} value="Add details"/>
+          <input type="button" id="SubmitForm" className={styles.submitForm} onClick={()=>submitData()} value="Add details"/>
         </div>
       </div>
     </div>
