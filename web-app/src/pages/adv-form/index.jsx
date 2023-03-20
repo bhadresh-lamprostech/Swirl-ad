@@ -149,6 +149,7 @@ const client = new Web3Storage({
           <input
             type="file"
             id="logo"
+            accept="image/*"
             onChange={(e) => {
               setFormData({ ...formData, orgLogo: e.target.files[0] });
             }}

@@ -78,6 +78,11 @@
   --blue: #407a9d;
 }
 
+a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

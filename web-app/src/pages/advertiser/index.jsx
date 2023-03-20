@@ -1,7 +1,11 @@
+import styles from "@/styles/Advertiser.module.scss";
+import AdvLayout from "./adv-layout";
 export default function Advertiser(){
     return(
-        <div>
-            Advertiser page
-        </div>
+        <AdvLayout>
+            <div>
+                Dashboard
+            </div>
+        </AdvLayout>
     )
 }

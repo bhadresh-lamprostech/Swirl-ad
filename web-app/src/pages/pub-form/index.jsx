@@ -116,6 +116,7 @@ function PubForm() {
           <input 
             type="file" 
             id="logo"
+            accept="image/*"
             onChange={
               (e)=>{
                 setFormData({...formData, orgLogo:e.target.files[0] });
