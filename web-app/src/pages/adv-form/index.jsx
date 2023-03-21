@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import styles from "@/styles/AdvertiserForm.module.scss";
 import axios from "axios";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
@@ -7,11 +8,10 @@ import { useAccount } from "wagmi";
 import { ethers } from "ethers";
 import { Web3Storage } from "web3.storage";
 
-
 const Swirl_address = "0x739f7B3D37328809249ECe3fd6f3f88889982afE";
 
-
 function AdvForm() {
+  const route = useRouter();
   const [formData, setFormData] = useState({
     orgUsername: null,
     orgName: null,
@@ -22,16 +22,14 @@ function AdvForm() {
     orgFounder: null,
     orgCategory: null,
   });
+
+  const [cid, setCid] = useState("");
   const { address } = useAccount();
 
-const client = new Web3Storage({
-  token:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGRDOGI5MDZiNUIyMjJFM2Y4MTUzRTI1OEE3OEFGNzZCQkU2NDdGYzgiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzkxNjE1NzQ5NjYsIm5hbWUiOiJTd2lybCJ9.GmeMvijkrq0Pc24eHvrHNlwqCuVjCzJudWK4EAfY7Tk",
-});
-
-
-
-
+  const client = new Web3Storage({
+    token:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGRDOGI5MDZiNUIyMjJFM2Y4MTUzRTI1OEE3OEFGNzZCQkU2NDdGYzgiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzkxNjE1NzQ5NjYsIm5hbWUiOiJTd2lybCJ9.GmeMvijkrq0Pc24eHvrHNlwqCuVjCzJudWK4EAfY7Tk",
+  });
 
   const [countries, setCountries] = useState([]);
 
@@ -49,7 +47,11 @@ const client = new Web3Storage({
     console.log(formData);
   }, [formData]);
 
-  
+  useEffect(() => {
+    if (formData.orgLogo) {
+      UploadImage();
+    }
+  }, [formData.orgLogo]);
 
   const getContract = async () => {
     try {
@@ -88,7 +90,8 @@ const client = new Web3Storage({
         address,
         formData.orgUsername,
         formData.orgName,
-        formData.orgLogo,
+        // formData.orgLogo,
+        cid,
         formData.orgDescription,
         formData.orgOrigin,
         formData.orgEmpStrength,
@@ -97,27 +100,28 @@ const client = new Web3Storage({
       );
       await tx.wait();
       console.log(tx);
-    
+      route.push("/advertiser");
     } catch (error) {
       console.log(error);
     }
   };
-    async function UploadImage(e) {
-     
-      try {
-        const fileInput = document.querySelector('input[type="file"]');
-        const rootCid = await client.put(fileInput.files);
-        const info = await client.status(rootCid);
-        const res = await client.get(rootCid); 
-        const files = await res.files(orgLogo);
-        for (const file of files) {
-          console.log(`${file.cid}`);
-        }
-     
-      } catch (error) {
-        console.log("Error uploading file: ", error);
+  async function UploadImage() {
+    try {
+      const fileInput = document.querySelector('input[type="file"]');
+      const rootCid = await client.put(fileInput.files, {
+        name: formData.orgLogo.name,
+        maxRetries: 3,
+      });
+
+      const res = await client.get(rootCid); // Web3Response
+      const files = await res.files(formData.orgLogo); // Web3File[]
+      for (const file of files) {
+        setCid(file.cid);
       }
+    } catch (e) {
+      console.log(e);
     }
+  }
 
   // const createPub = async () => {
   //   try {
@@ -178,9 +182,12 @@ const client = new Web3Storage({
           <select
             id="orgorigin"
             onChange={(e) => {
+              e.preventDefault();
               setFormData({ ...formData, orgOrigin: e.target.value });
             }}
+            defaultValue="N/A"
           >
+            <option value="">----- Select a Country -----</option>
             {countries.length > 0
               ? countries.map((i, index) => {
                   return (
@@ -221,14 +228,14 @@ const client = new Web3Storage({
               setFormData({ ...formData, orgCategory: e.target.value });
             }}
           />
-        </div>
+          </div>
         <div>
           <label htmlFor="SubmitForm"></label>
           <input
             type="button"
             id="SubmitForm"
             className={styles.submitForm}
-            onClick={()=>submitData()}
+            onClick={() => submitData()}
             value="Add details"
           />
         </div>
