@@ -1,74 +1,77 @@
 .AdvFormMain {
-    background-image: url("/static/picture-bg.png");
-    background-repeat: no-repeat;
-    color: #ffffff;
-    height: 100vh;
-    object-fit: contain;
-    width: 100%;
-    font-family: var(--font2-bold);
+  background-image: url("/static/picture-bg.png");
+  background-repeat: no-repeat;
+  color: #ffffff;
+  height: 100vh;
+  object-fit: contain;
+  width: 100%;
+  font-family: var(--font2-bold);
 
-    .advFormInner {
-        width: 410px;
-        margin: 0 auto;
+  .advFormInner {
+    width: 410px;
+    margin: 0 auto;
 
-        .advFormHeader {
-            font-size: 30px;
-            text-align: center;
-            width: 100%;
-        }
-
-        #firstDiv {
-            margin-top: 60px;
-            padding: 10px 0;
-            display: inline-flex;
-            align-items: center;
-            align-content: center;
-            flex-wrap: wrap;
-        }
-
-        div {
-            padding: 10px 0;
-            display: inline-flex;
-            align-items: center;
-            align-content: center;
-            flex-wrap: wrap;
-
-            label {
-                flex-grow: 1;
-                width: 180px;
-                font-size: 20px;
-                text-align: right;
-                margin-right: 20px;
-                white-space: nowrap;
-            }
-
-            input[type=text], input[type=number], input[type=file],select {
-                font-size: 15px;
-                padding: 10px;
-                width: 200px;
-                resize: none;
-            }
-
-            textarea {
-                font-size: 15px;
-                padding: 10px;
-                width: 200px;
-                resize: none;
-                height: 120px;
-            }
-
-            .submitForm{
-                padding: 10px 20px;
-                background-color: var(--purple);
-                border: 1px solid transparent;
-                cursor: pointer;
-                color: var(--text-color);
-                text-align: center;
-
-                &:hover {
-                    border: 1px solid var(--text-color);
-                }
-            }
-        }
+    .advFormHeader {
+      font-size: 30px;
+      text-align: center;
+      width: 100%;
     }
+
+    #firstDiv {
+      margin-top: 60px;
+      padding: 10px 0;
+      display: inline-flex;
+      align-items: center;
+      align-content: center;
+      flex-wrap: wrap;
+    }
+
+    div {
+      padding: 10px 0;
+      display: inline-flex;
+      align-items: center;
+      align-content: center;
+      flex-wrap: wrap;
+
+      label {
+        flex-grow: 1;
+        width: 180px;
+        font-size: 20px;
+        text-align: right;
+        margin-right: 20px;
+        white-space: nowrap;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      input[type="file"],
+      select {
+        font-size: 15px;
+        padding: 10px;
+        width: 200px;
+        resize: none;
+      }
+
+      textarea {
+        font-size: 15px;
+        padding: 10px;
+        width: 200px;
+        resize: none;
+        height: 120px;
+      }
+
+      .submitForm {
+        padding: 10px 20px;
+        background-color: var(--purple);
+        border: 1px solid transparent;
+        cursor: pointer;
+        color: var(--text-color);
+        text-align: center;
+
+        &:hover {
+          border: 1px solid var(--text-color);
+        }
+      }
+    }
+  }
 }

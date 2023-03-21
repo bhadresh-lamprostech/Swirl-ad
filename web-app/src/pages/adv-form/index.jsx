@@ -24,10 +24,10 @@ function AdvForm() {
   });
   const { address } = useAccount();
 
-const client = new Web3Storage({
-  token:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGRDOGI5MDZiNUIyMjJFM2Y4MTUzRTI1OEE3OEFGNzZCQkU2NDdGYzgiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzkxNjE1NzQ5NjYsIm5hbWUiOiJTd2lybCJ9.GmeMvijkrq0Pc24eHvrHNlwqCuVjCzJudWK4EAfY7Tk",
-});
+  const client = new Web3Storage({
+    token:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGRDOGI5MDZiNUIyMjJFM2Y4MTUzRTI1OEE3OEFGNzZCQkU2NDdGYzgiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzkxNjE1NzQ5NjYsIm5hbWUiOiJTd2lybCJ9.GmeMvijkrq0Pc24eHvrHNlwqCuVjCzJudWK4EAfY7Tk",
+  });
 
 
 
@@ -49,7 +49,7 @@ const client = new Web3Storage({
     console.log(formData);
   }, [formData]);
 
-  
+
 
   const getContract = async () => {
     try {
@@ -97,27 +97,27 @@ const client = new Web3Storage({
       );
       await tx.wait();
       console.log(tx);
-    
+
     } catch (error) {
       console.log(error);
     }
   };
-    async function UploadImage(e) {
-     
-      try {
-        const fileInput = document.querySelector('input[type="file"]');
-        const rootCid = await client.put(fileInput.files);
-        const info = await client.status(rootCid);
-        const res = await client.get(rootCid); 
-        const files = await res.files(orgLogo);
-        for (const file of files) {
-          console.log(`${file.cid}`);
-        }
-     
-      } catch (error) {
-        console.log("Error uploading file: ", error);
+  async function UploadImage(e) {
+
+    try {
+      const fileInput = document.querySelector('input[type="file"]');
+      const rootCid = await client.put(fileInput.files);
+      const info = await client.status(rootCid);
+      const res = await client.get(rootCid);
+      const files = await res.files(orgLogo);
+      for (const file of files) {
+        console.log(`${file.cid}`);
       }
+
+    } catch (error) {
+      console.log("Error uploading file: ", error);
     }
+  }
 
   // const createPub = async () => {
   //   try {
@@ -184,12 +184,12 @@ const client = new Web3Storage({
           >
             {countries.length > 0
               ? countries.map((i, index) => {
-                  return (
-                    <option value={i} key={index}>
-                      {i}
-                    </option>
-                  );
-                })
+                return (
+                  <option value={i} key={index}>
+                    {i}
+                  </option>
+                );
+              })
               : null}
           </select>
         </div>
@@ -229,7 +229,7 @@ const client = new Web3Storage({
             type="button"
             id="SubmitForm"
             className={styles.submitForm}
-            onClick={()=>submitData()}
+            onClick={() => submitData()}
             value="Add details"
           />
         </div>

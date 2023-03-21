@@ -1,76 +1,76 @@
 .onboardMain {
-    background-image: url("/static/picture-bg.png");
-    background-repeat: no-repeat;
-    color: #ffffff;
-    height: 100vh;
-    object-fit: contain;
-    width: 100%;
+  background-image: url("/static/picture-bg.png");
+  background-repeat: no-repeat;
+  color: #ffffff;
+  height: 100vh;
+  object-fit: contain;
+  width: 100%;
 
-    .onboardHeader {
-        font-size: 35px;
-        font-family: var(--font1);
-        text-align: center;
-        padding-top: 200px;
-    }
+  .onboardHeader {
+    font-size: 35px;
+    font-family: var(--font1);
+    text-align: center;
+    padding-top: 200px;
+  }
 
-    .onboardInner {
+  .onboardInner {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    height: 400px;
+    width: 60%;
+    margin: 0 auto;
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+
+    .left {
+      display: flex;
+      align-items: center;
+      align-content: center;
+      flex-wrap: wrap;
+      margin: 0 auto;
+
+      .advCard {
         display: flex;
         align-items: center;
         align-content: center;
         flex-wrap: wrap;
-        height: 400px;
-        width: 60%;
-        margin: 0 auto;
-        backdrop-filter: blur(20px);
-        border-radius: 20px;
+        height: 100px;
+        width: 100%;
+        padding: 30px;
+        text-align: center;
+        background-color: var(--pink);
 
-        .left {
-            display: flex;
-            align-items: center;
-            align-content: center;
-            flex-wrap: wrap;
-            margin: 0 auto;
-
-            .advCard {
-                display: flex;
-                align-items: center;
-                align-content: center;
-                flex-wrap: wrap;
-                height: 100px;
-                width: 100%;
-                padding: 30px;
-                text-align: center;
-                background-color: var(--pink);
-
-                &:hover {
-                    background-color: var(--purple);
-                    cursor: pointer;
-                }
-            }
+        &:hover {
+          background-color: var(--purple);
+          cursor: pointer;
         }
-
-        .right {
-            display: flex;
-            align-items: center;
-            align-content: center;
-            margin: 0 auto;
-
-            .pubCard {
-                display: flex;
-                align-items: center;
-                align-content: center;
-                flex-wrap: wrap;
-                height: 100px;
-                width: 100%;
-                padding: 30px;
-                text-align: center;
-                background-color: var(--pink);
-
-                &:hover {
-                    background-color: var(--purple);
-                    cursor: pointer;
-                }
-            }
-        }
+      }
     }
+
+    .right {
+      display: flex;
+      align-items: center;
+      align-content: center;
+      margin: 0 auto;
+
+      .pubCard {
+        display: flex;
+        align-items: center;
+        align-content: center;
+        flex-wrap: wrap;
+        height: 100px;
+        width: 100%;
+        padding: 30px;
+        text-align: center;
+        background-color: var(--pink);
+
+        &:hover {
+          background-color: var(--purple);
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }
