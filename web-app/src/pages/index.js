@@ -18,6 +18,7 @@ const chains = [polygonMumbai, goerli, optimismGoerli];
 
 export default function Home() {
   const {isConnected} = useAccount();
+  
   return (
       <RainbowKitProvider chains={chains}>
         <div className={styles.landing}>
