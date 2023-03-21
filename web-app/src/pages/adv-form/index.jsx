@@ -30,13 +30,6 @@ function AdvForm() {
     token:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGRDOGI5MDZiNUIyMjJFM2Y4MTUzRTI1OEE3OEFGNzZCQkU2NDdGYzgiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzkxNjE1NzQ5NjYsIm5hbWUiOiJTd2lybCJ9.GmeMvijkrq0Pc24eHvrHNlwqCuVjCzJudWK4EAfY7Tk",
   });
-<<<<<<< HEAD
-
-
-
-
-=======
->>>>>>> 0ba47cbda8b5aa66b63cbf5282f7b8f429a069e9
 
   const [countries, setCountries] = useState([]);
 
@@ -54,15 +47,11 @@ function AdvForm() {
     console.log(formData);
   }, [formData]);
 
-<<<<<<< HEAD
-
-=======
   useEffect(() => {
     if (formData.orgLogo) {
       UploadImage();
     }
   }, [formData.orgLogo]);
->>>>>>> 0ba47cbda8b5aa66b63cbf5282f7b8f429a069e9
 
   const getContract = async () => {
     try {
@@ -111,31 +100,11 @@ function AdvForm() {
       );
       await tx.wait();
       console.log(tx);
-<<<<<<< HEAD
-
-=======
       route.push("/advertiser");
->>>>>>> 0ba47cbda8b5aa66b63cbf5282f7b8f429a069e9
     } catch (error) {
       console.log(error);
     }
   };
-<<<<<<< HEAD
-  async function UploadImage(e) {
-
-    try {
-      const fileInput = document.querySelector('input[type="file"]');
-      const rootCid = await client.put(fileInput.files);
-      const info = await client.status(rootCid);
-      const res = await client.get(rootCid);
-      const files = await res.files(orgLogo);
-      for (const file of files) {
-        console.log(`${file.cid}`);
-      }
-
-    } catch (error) {
-      console.log("Error uploading file: ", error);
-=======
   async function UploadImage() {
     try {
       const fileInput = document.querySelector('input[type="file"]');
@@ -151,7 +120,6 @@ function AdvForm() {
       }
     } catch (e) {
       console.log(e);
->>>>>>> 0ba47cbda8b5aa66b63cbf5282f7b8f429a069e9
     }
   }
 
