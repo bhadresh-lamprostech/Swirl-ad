@@ -1,3 +1,9 @@
+import PubLayout from "./pub-layout"
+
 export default function Publisher() {
-  return <div>Publisher page</div>;
+  return (
+    <PubLayout>
+        Publisher Dashboard
+    </PubLayout>
+  )
 }
