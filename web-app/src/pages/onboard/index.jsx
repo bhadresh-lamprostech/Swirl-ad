@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { ethers } from "ethers";
 import { Web3Storage } from "web3.storage";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
-const Swirl_address = "0x739f7B3D37328809249ECe3fd6f3f88889982afE";
+const Swirl_address = "0x0f2e50A659CFB72c237bEb0Ba0554F25A9dA9518";
 
 export default function onBoard() {
   const { isConnected, address } = useAccount();
@@ -47,6 +47,7 @@ export default function onBoard() {
   useEffect(() => {
     (async () => {
       const contract = await getContract();
+      console.log(contract)
       const getAdv = await contract.getAdvertiser(address);
       if (getAdv[1] === address) {
         Route.push("/advertiser");

@@ -31,10 +31,14 @@ struct Publisher {
         string  orgCatagory;
     }
 
-    struct Campaign {
+   struct Campaign {
         uint256 id;
         uint256 advertiserId;
         uint256 balance;
+        string  campaignName;
+        string  budget;
+        string  payclick;
+        string  stringCID;
     }
 
     mapping(uint256 => Advertiser) private advertisers;
@@ -76,26 +80,33 @@ function publisherExists(address _wallet) private view returns (bool) {
     return false;
 }
 
-   function createCampaign(address _advertiserAddress, uint256 _balance) public {
-    require(advertiserExists(_advertiserAddress) == true, "Advertiser does not exist");
-    uint256 advertiserId;
-    for (uint256 i = 1; i <= advertiserCounter; i++) {
-        if (advertisers[i].wallet == _advertiserAddress) {
-            advertiserId = i;
-            break;
+//    function createCampaign(address _advertiserAddress, uint256 _balance) public {
+//     require(advertiserExists(_advertiserAddress) == true, "Advertiser does not exist");
+//     uint256 advertiserId;
+//     for (uint256 i = 1; i <= advertiserCounter; i++) {
+//         if (advertisers[i].wallet == _advertiserAddress) {
+//             advertiserId = i;
+//             break;
+//         }
+//     }
+
+//     campaignCounter++;
+//     campaigns[campaignCounter] = Campaign(campaignCounter, advertiserId, _balance);
+//     advertisers[advertiserId].balance += _balance;
+// }
+
+  function deposit(address _advertiserAddress) public payable {
+        uint256 advertiserId;
+        for (uint256 i = 1; i <= advertiserCounter; i++) {
+            if (advertisers[i].wallet == _advertiserAddress) {
+                advertiserId = i;
+                break;
+            }
         }
-    }
+        require(advertiserId > 0, "Advertiser does not exist");
+        require(advertisers[advertiserId].wallet == msg.sender, "Only advertiser can deposit funds");
 
-    campaignCounter++;
-    campaigns[campaignCounter] = Campaign(campaignCounter, advertiserId, _balance);
-    advertisers[advertiserId].balance += _balance;
-}
-
-    function deposit(uint256 _advertiserId) public payable {
-        require(_advertiserId <= advertiserCounter, "Advertiser does not exist");
-        require(advertisers[_advertiserId].wallet == msg.sender, "Only advertiser can deposit funds");
-
-        advertisers[_advertiserId].balance += msg.value;
+        advertisers[advertiserId].balance += msg.value;
     }
 
     function withdraw(uint256 _publisherId, uint256 _campaignId) public {
@@ -196,26 +207,61 @@ function getAllPublishers() public view returns (uint256[] memory ids,  address[
     }
     return (ids, addresses,orgUsernames,orgnames,orgLogos,orgdiscriptions,orgOrigins,empstrengths,orgFounders,orgCatagories);
 }
-function getCampaign(uint256 _campaignId) public view returns (uint256, address, uint256) {
-    require(_campaignId <= campaignCounter, "Campaign does not exist");
-
-    Campaign memory campaign = campaigns[_campaignId];
-    return (campaign.id, advertisers[campaign.advertiserId].wallet, campaign.balance);
-}
-
-function getAllCampaigns() public view returns (uint256[] memory, address[] memory, uint256[] memory) {
-    uint256[] memory campaignIds = new uint256[](campaignCounter);
-    address[] memory advertiserAddresses = new address[](campaignCounter);
-    uint256[] memory balances = new uint256[](campaignCounter);
-
-    for (uint256 i = 1; i <= campaignCounter; i++) {
-        campaignIds[i - 1] = campaigns[i].id;
-        advertiserAddresses[i - 1] = advertisers[campaigns[i].advertiserId].wallet;
-        balances[i - 1] = campaigns[i].balance;
+function createCampaign(address _advertiserAddress, uint256 _balance, string memory _campaignName, string memory _budget, string memory _payclick, string memory _stringCID) public {
+    require(advertiserExists(_advertiserAddress) == true, "Advertiser does not exist");
+    uint256 advertiserId;
+    for (uint256 i = 1; i <= advertiserCounter; i++) {
+        if (advertisers[i].wallet == _advertiserAddress) {
+            advertiserId = i;
+            break;
+        }
     }
 
-    return (campaignIds, advertiserAddresses, balances);
+    campaignCounter++;
+    campaigns[campaignCounter] = Campaign(campaignCounter, advertiserId, _balance, _campaignName, _budget, _payclick, _stringCID);
+    advertisers[advertiserId].balance += _balance;
 }
 
+
+function getCampaign(address _advertiserAddress) public view returns (uint256[] memory ids,  uint256[] memory balances, string[] memory campaignNames, string[] memory budgets, string[] memory payclicks, string[] memory stringCIDs) {
+    ids = new uint256[](campaignCounter);
+    balances = new uint256[](campaignCounter);
+    campaignNames = new string[](campaignCounter);
+    budgets = new string[](campaignCounter);
+    payclicks = new string[](campaignCounter);
+    stringCIDs = new string[](campaignCounter);
+    for (uint256 i = 1; i <= campaignCounter; i++) {
+        if (advertisers[campaigns[i].advertiserId].wallet == _advertiserAddress) {
+            ids[i - 1] = campaigns[i].id;
+            balances[i - 1] = campaigns[i].balance;
+            campaignNames[i - 1] = campaigns[i].campaignName;
+            budgets[i - 1] = campaigns[i].budget;
+            payclicks[i - 1] = campaigns[i].payclick;
+            stringCIDs[i - 1] = campaigns[i].stringCID;
+        }
+    }
+    return (ids, balances, campaignNames, budgets, payclicks, stringCIDs);
+}
+
+
+function getAllCampaigns() public view returns (uint256[] memory ids,  address[] memory advertiserIds, uint256[] memory balances, string[] memory campaignNames, string[] memory budgets, string[] memory payclicks, string[] memory stringCIDs) {
+    ids = new uint256[](campaignCounter);
+    advertiserIds = new address[](campaignCounter);
+    balances = new uint256[](campaignCounter);
+    campaignNames = new string[](campaignCounter);
+    budgets = new string[](campaignCounter);
+    payclicks = new string[](campaignCounter);
+    stringCIDs = new string[](campaignCounter);
+    for (uint256 i = 1; i <= campaignCounter; i++) {
+        ids[i - 1] = campaigns[i].id;
+        advertiserIds[i - 1] = advertisers[campaigns[i].advertiserId].wallet;
+        balances[i - 1] = campaigns[i].balance;
+        campaignNames[i - 1] = campaigns[i].campaignName;
+        budgets[i - 1] = campaigns[i].budget;
+        payclicks[i - 1] = campaigns[i].payclick;
+        stringCIDs[i - 1] = campaigns[i].stringCID;
+    }
+    return (ids, advertiserIds, balances, campaignNames, budgets, payclicks, stringCIDs);
+}
 
 }

@@ -1,0 +1,57 @@
+.cpMain {
+  width: 540px;
+  margin: 27px auto 10px auto;
+  padding: 36px 48px 48px 48px;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(9.5px);
+  -webkit-backdrop-filter: blur(9.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  /* border: 1px solid #f48982; */
+  border-radius: 11px;
+}
+
+.cpHeading {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 16px;
+}
+.form label {
+  display: block;
+  margin-bottom: 8px;
+}
+.form input {
+  width: 100%;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(9.5px);
+  -webkit-backdrop-filter: blur(9.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  color: black;
+
+  border: none;
+}
+
+.form input::-webkit-outer-spin-button,
+.form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.form ::placeholder {
+  color: black;
+}
+.form input:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(253, 242, 233, 0.5);
+}

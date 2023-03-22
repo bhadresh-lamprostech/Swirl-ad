@@ -1,5 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
 
+const { POLYGON_PVTKEY } = process.env;
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.18",
@@ -17,9 +19,7 @@ module.exports = {
     polygon: {
       chainId: 80001,
       url: "https://matic-mumbai.chainstacklabs.com", // Your RPC url
-      accounts: [
-        ,
-      ], // yout private key
+      accounts: [`0x${POLYGON_PVTKEY}`], // yout private key
     },
     // goerli: {
     //   chainId: 05,
