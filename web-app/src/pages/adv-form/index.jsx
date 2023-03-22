@@ -7,10 +7,17 @@ import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import { useAccount } from "wagmi";
 import { ethers } from "ethers";
 import { Web3Storage } from "web3.storage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Swirl_address = "0x739f7B3D37328809249ECe3fd6f3f88889982afE";
+const Swirl_address = "0x0f2e50A659CFB72c237bEb0Ba0554F25A9dA9518";
 
 function AdvForm() {
+  const toastInfo = () =>
+    toast.info("Wait until your transection has been complete");
+  const txError = () =>
+    toast.error("oh no.. your transection was unsuccessful");
+
   const route = useRouter();
   const [formData, setFormData] = useState({
     orgUsername: null,
@@ -99,9 +106,13 @@ function AdvForm() {
         formData.orgCategory
       );
       await tx.wait();
+      toastInfo();
+
       console.log(tx);
+
       route.push("/advertiser");
     } catch (error) {
+      txError();
       console.log(error);
     }
   };
@@ -229,7 +240,7 @@ function AdvForm() {
               setFormData({ ...formData, orgCategory: e.target.value });
             }}
           />
-          </div>
+        </div>
         <div>
           <label htmlFor="SubmitForm"></label>
           <input
@@ -240,6 +251,19 @@ function AdvForm() {
             value="Add details"
           />
         </div>
+        <ToastContainer
+          ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        ></ToastContainer>
       </div>
     </div>
   );
