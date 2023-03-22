@@ -3,7 +3,7 @@ import PubLayout from './pub-layout'
 function GenerateToken() {
   return (
     <PubLayout>
-        <div>Generate Token</div>
+      <div>Generate Token</div>
     </PubLayout>
   )
 }

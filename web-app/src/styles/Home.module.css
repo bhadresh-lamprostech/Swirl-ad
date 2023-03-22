@@ -3,17 +3,17 @@
   from {
     rotate: 0deg;
   }
-  
+
   50% {
     scale: 1 1.5;
   }
-  
+
   to {
     rotate: 360deg;
   }
 }
 
-.landing{
+.landing {
   min-height: 100vh;
   width: 100%;
   position: absolute;
@@ -44,13 +44,13 @@
 
 .gradient2 {
   background-image: url("/static/gradient2.svg");
-    position: fixed;
-    bottom: 0;
-    z-index: 1111 !important;
+  position: fixed;
+  bottom: 0;
+  z-index: 1111 !important;
   right: 0;
-    width: 400px;
-    height: 400px;
-    object-fit: cover;
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
 }
 
 .logo {
@@ -109,7 +109,6 @@
   align-content: center;
   flex-wrap: wrap;
   background: transparent;
-
 }
 
 .hero .heading {
@@ -118,26 +117,26 @@
   padding-bottom: 40px;
 }
 
-.hero .heading span:first-child{
+.hero .heading span:first-child {
   color: var(--pink);
 }
 
-.hero .heading span:nth-child(2){
+.hero .heading span:nth-child(2) {
   color: var(--purple);
 }
 
-.hero .heading span:nth-child(4){
+.hero .heading span:nth-child(4) {
   color: var(--blue);
 }
 
-.hero .heading span:nth-child(5){
+.hero .heading span:nth-child(5) {
   color: var(--yellow);
 }
 
 .hero .tagline {
   text-align: center;
-    font-size: 50px;
-    width: 560px;
+  font-size: 50px;
+  width: 560px;
 }
 
 .hero .btnHolder {
@@ -152,7 +151,7 @@
   overflow: hidden;
 }
 
-.advSection .advMain{
+.advSection .advMain {
   max-width: 1200px;
   display: flex;
   align-items: center;
@@ -183,18 +182,18 @@
   height: 500px;
   object-fit: contain;
   z-index: 100;
-  margin-top:100px;
+  margin-top: 100px;
 }
 
 .advSection .advLeft .bg {
   top: 100px;
-    z-index: -1;
-    position: absolute;
-    width: 800px;
-    height: 700px;
-    margin-left: -100px;
-    object-fit: contain;
-    transform: scale(1.25);
+  z-index: -1;
+  position: absolute;
+  width: 800px;
+  height: 700px;
+  margin-left: -100px;
+  object-fit: contain;
+  transform: scale(1.25);
 }
 .advSection .advRight {
   width: 50%;
@@ -233,7 +232,6 @@
   border: 1px solid var(--yellow);
 }
 
-
 .pubSection {
   height: 100vh;
   /* background-image: url("../../public/static/Main-bg.png"); */
@@ -242,7 +240,7 @@
   overflow: hidden;
 }
 
-.pubSection .pubMain{
+.pubSection .pubMain {
   max-width: 1200px;
   display: flex;
   align-items: center;
@@ -273,18 +271,18 @@
   height: 500px;
   object-fit: contain;
   z-index: 100;
-  margin-top:100px;
+  margin-top: 100px;
 }
 
 .pubSection .pubLeft .bg {
   top: 100px;
-    z-index: -1;
-    position: absolute;
-    width: 800px;
-    height: 700px;
-    margin-left: -100px;
-    object-fit: contain;
-    transform: scale(1.25);
+  z-index: -1;
+  position: absolute;
+  width: 800px;
+  height: 700px;
+  margin-left: -100px;
+  object-fit: contain;
+  transform: scale(1.25);
 }
 .pubSection .pubRight {
   width: 50%;
@@ -323,7 +321,6 @@
   border: 1px solid var(--yellow);
 }
 
-
 .footer {
   background-color: var(--dark);
   color: #ffffff;
@@ -355,8 +352,7 @@
   height: 30px;
 }
 
-@media(max-width: 1290px) {
-
+@media (max-width: 1290px) {
   .hero {
     height: auto;
     margin-bottom: 200px;
@@ -384,7 +380,8 @@
     margin-left: unset !important;
   }
 
-  .advSection .advMain .advRight .title, .advSection .advMain .advRight .description {
+  .advSection .advMain .advRight .title,
+  .advSection .advMain .advRight .description {
     width: 100%;
   }
 
@@ -415,7 +412,8 @@
     text-align: center !important;
   }
 
-  .pubSection .pubMain .pubRight .title, .pubSection .pubMain .pubRight .description {
+  .pubSection .pubMain .pubRight .title,
+  .pubSection .pubMain .pubRight .description {
     width: 100%;
     text-align: center;
   }

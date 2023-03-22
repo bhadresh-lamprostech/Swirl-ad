@@ -3,7 +3,7 @@ import PubLayout from './pub-layout'
 function Docs() {
   return (
     <PubLayout>
-        <div>Docs</div>
+      <div>Docs</div>
     </PubLayout>
   )
 }

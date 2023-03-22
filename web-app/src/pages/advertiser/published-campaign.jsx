@@ -4,7 +4,7 @@ import AdvLayout from './adv-layout'
 function PublishedCampaign() {
   return (
     <AdvLayout>
-        <div>PublishedCampaign</div>
+      <div>PublishedCampaign</div>
     </AdvLayout>
   )
 }

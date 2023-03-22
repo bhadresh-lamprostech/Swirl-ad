@@ -202,12 +202,12 @@ function AdvForm() {
             <option value="">----- Select a Country -----</option>
             {countries.length > 0
               ? countries.map((i, index) => {
-                  return (
-                    <option value={i} key={index}>
-                      {i}
-                    </option>
-                  );
-                })
+                return (
+                  <option value={i} key={index}>
+                    {i}
+                  </option>
+                );
+              })
               : null}
           </select>
         </div>

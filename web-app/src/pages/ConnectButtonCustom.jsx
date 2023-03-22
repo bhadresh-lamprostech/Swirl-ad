@@ -5,7 +5,7 @@ import styles from "@/styles/ConnectButtonCustom.module.css";
 
 const ConnectButtomCustom = () => {
   const route = useRouter();
-  const {asPath} = route;
+  const { asPath } = route;
 
   const redirect = () => {
     route.push("/onboard");
@@ -60,45 +60,45 @@ const ConnectButtomCustom = () => {
                 <div style={{ display: "flex", gap: 12 }}>
                   {
                     asPath === "/"
-                    ?
-                      <button className={styles.cntdBtn} onClick={()=>{ redirect() }}><span>CONNECTED</span></button>
-                    :
-                    <>
-                      <button
-                        onClick={openChainModal}
-                        style={{ display: "flex", alignItems: "center" }}
-                        type="button"
-                      >
-                        {chain.hasIcon && (
-                          <div
-                            style={{
-                              background: chain.iconBackground,
-                              width: 12,
-                              height: 12,
-                              borderRadius: 999,
-                              overflow: "hidden",
-                              marginRight: 4,
-                            }}
-                          >
-                            {chain.iconUrl && (
-                              <Image
-                                width={12}
-                                height={12}
-                                alt={chain.name ?? "Chain icon"}
-                                src={chain.iconUrl}
-                              />
-                            )}
-                          </div>
-                        )}
-                        {chain.name}
-                      </button>
-                      <button onClick={openAccountModal} type="button">
-                        {account.displayName}
-                        {account.displayBalance
-                          ? ` (${account.displayBalance})`
-                          : ""}
-                      </button>
-                    </>
+                      ?
+                      <button className={styles.cntdBtn} onClick={() => { redirect() }}><span>CONNECTED</span></button>
+                      :
+                      <>
+                        <button
+                          onClick={openChainModal}
+                          style={{ display: "flex", alignItems: "center" }}
+                          type="button"
+                        >
+                          {chain.hasIcon && (
+                            <div
+                              style={{
+                                background: chain.iconBackground,
+                                width: 12,
+                                height: 12,
+                                borderRadius: 999,
+                                overflow: "hidden",
+                                marginRight: 4,
+                              }}
+                            >
+                              {chain.iconUrl && (
+                                <Image
+                                  width={12}
+                                  height={12}
+                                  alt={chain.name ?? "Chain icon"}
+                                  src={chain.iconUrl}
+                                />
+                              )}
+                            </div>
+                          )}
+                          {chain.name}
+                        </button>
+                        <button onClick={openAccountModal} type="button">
+                          {account.displayName}
+                          {account.displayBalance
+                            ? ` (${account.displayBalance})`
+                            : ""}
+                        </button>
+                      </>
                   }
                 </div>
               );

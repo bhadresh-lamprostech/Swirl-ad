@@ -1,49 +1,55 @@
 @mixin flexing {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
 }
 
 .advNavMain {
-    color: var(--text-color);
-    width: 100%;
-    font-family: var(--font2-bold);
-    padding: 20px 0;
-    background: linear-gradient(to right, var(--purple),var(--pink), var(--blue), var(--yellow));
-    border-radius: 20px;
+  color: var(--text-color);
+  width: 100%;
+  font-family: var(--font2-bold);
+  padding: 20px 0;
+  background: linear-gradient(
+    to right,
+    var(--purple),
+    var(--pink),
+    var(--blue),
+    var(--yellow)
+  );
+  border-radius: 20px;
 
-    .advNavHolder {
-        @include flexing;
-        padding: 10px 10px;
-        height: 20px;
-        .advNavLeft {
-            flex-grow: 1;
-        }
-    
-        .advNavRight {
-            ul{
-                list-style-type: none;
-                display: flex;
-                align-items: center;
-                align-content: center;
-                flex-wrap: wrap;
-                gap: 10px;
-    
-                li {
-                    background-color: var(--purple);
-                    padding: 10px;
-                    border-radius: 10px;
-    
-                    &:hover {
-                        background-color: var(--pink);
-                    }
-                }
-            }
-        }
+  .advNavHolder {
+    @include flexing;
+    padding: 10px 10px;
+    height: 20px;
+    .advNavLeft {
+      flex-grow: 1;
     }
+
+    .advNavRight {
+      ul {
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        li {
+          background-color: var(--purple);
+          padding: 10px;
+          border-radius: 10px;
+
+          &:hover {
+            background-color: var(--pink);
+          }
+        }
+      }
+    }
+  }
 }
 
 li.Active {
-    background-color: var(--pink) !important;
+  background-color: var(--pink) !important;
 }
