@@ -42,6 +42,7 @@ export default function onBoard() {
   useEffect(() => {
     if (!isConnected) Route.push("/");
   }, [isConnected]);
+
   //checks if user already registerd as a advertiser if yes then redirected on advertisers page
   useEffect(() => {
     (async () => {
@@ -55,6 +56,7 @@ export default function onBoard() {
       console.log(getAdv);
     })();
   }, []);
+
   //checks if user already registerd as a Publisher if yes then redirected on publishers page
   useEffect(() => {
     (async () => {
