@@ -59,6 +59,7 @@ function AdvForm() {
       UploadImage();
     }
   }, [formData.orgLogo]);
+  
 
   const getContract = async () => {
     try {

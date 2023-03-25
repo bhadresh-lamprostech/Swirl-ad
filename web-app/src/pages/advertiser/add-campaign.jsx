@@ -1,13 +1,108 @@
 import React from "react";
 import AdvLayout from "./adv-layout";
 import styles from "@/styles/add-campaign.module.scss";
-import { useState } from "react";
-function AddCampaign() {
+import { useState, useEffect } from "react";
+import { useAccount, useSigner } from "wagmi";
+import { ethers } from "ethers";
+import { Polybase } from "@polybase/client";
+import { ethPersonalSign } from "@polybase/eth";
+import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
+import { Web3Storage } from "web3.storage";
 
+const Swirl_address = "0x0f2e50A659CFB72c237bEb0Ba0554F25A9dA9518";
+
+function AddCampaign() {
   const [campaignData, setCampaginData] = useState({
-    
-  })
+    campaignName: null,
+    campaignBudget: null,
+    campaignPpckick: null,
+    contentCid: null,
+  });
+
+  const { address } = useAccount();
+  const client = new Web3Storage({
+    token:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGRDOGI5MDZiNUIyMjJFM2Y4MTUzRTI1OEE3OEFGNzZCQkU2NDdGYzgiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzkxNjE1NzQ5NjYsIm5hbWUiOiJTd2lybCJ9.GmeMvijkrq0Pc24eHvrHNlwqCuVjCzJudWK4EAfY7Tk",
+  });
+
+  const [cid, setCid] = useState("");
+
   const exceptThisSymbols = ["e", "E", "+", "-"];
+  useEffect(() => {
+    console.log(campaignData);
+  }, [campaignData]);
+
+  useEffect(() => {
+    if (campaignData.contentCid) {
+      UploadImage();
+    }
+  }, [campaignData.contentCid]);
+
+  async function UploadImage() {
+    try {
+      const fileInput = document.querySelector('input[type="file"]');
+      const rootCid = await client.put(fileInput.files, {
+        name: campaignData.contentCid.name,
+        maxRetries: 3,
+      });
+
+      const res = await client.get(rootCid); // Web3Response
+      const files = await res.files(campaignData.contentCid); // Web3File[]
+      for (const file of files) {
+        setCid(file.cid);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  const getContract = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+        if (chainId === 80001) {
+          const contract = new ethers.Contract(
+            Swirl_address,
+            Swirl.abi,
+            signer
+          );
+          return contract;
+        } else {
+          alert("Please connect to the polygon Mumbai testnet Network!");
+        }
+      }
+      console.log(signer);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const uploadCampaign = async () => {
+    try {
+      console.log(address);
+      const contract = await getContract();
+      const tx = await contract.createCampaign(
+        address,
+        campaignData.campaignBudget,
+
+        campaignData.campaignName,
+        0,
+
+        campaignData.campaignPpckick,
+        cid
+      );
+      await tx.wait();
+
+      console.log(tx);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <AdvLayout>
@@ -22,6 +117,12 @@ function AddCampaign() {
               placeholder="eg.Crypto Advertisement"
               name="name"
               required
+              onChange={(e) => {
+                setCampaginData({
+                  ...campaignData,
+                  campaignName: e.target.value,
+                });
+              }}
             />
           </div>
 
@@ -36,6 +137,12 @@ function AddCampaign() {
               onKeyDown={(e) =>
                 exceptThisSymbols.includes(e.key) && e.preventDefault()
               }
+              onChange={(e) => {
+                setCampaginData({
+                  ...campaignData,
+                  campaignBudget: e.target.value,
+                });
+              }}
               placeholder="eg.1, 0.1"
               name="name"
               required
@@ -52,6 +159,12 @@ function AddCampaign() {
               onKeyDown={(e) =>
                 exceptThisSymbols.includes(e.key) && e.preventDefault()
               }
+              onChange={(e) => {
+                setCampaginData({
+                  ...campaignData,
+                  campaignPpckick: e.target.value,
+                });
+              }}
               placeholder="eg.1, 0.1"
               name="name"
               required
@@ -65,8 +178,15 @@ function AddCampaign() {
               placeholder="Crypto Advertisement"
               name="name"
               required
+              onChange={(e) => {
+                setCampaginData({
+                  ...campaignData,
+                  contentCid: e.target.value,
+                });
+              }}
             />
           </div>
+          <button onClick={() => uploadCampaign()}>uploadCampaign</button>
         </div>
       </div>
     </AdvLayout>
