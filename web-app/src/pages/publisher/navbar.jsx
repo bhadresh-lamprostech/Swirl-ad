@@ -12,7 +12,12 @@ function Navbar() {
       <div className={styles.advNavMain}>
         <div className={styles.advNavHolder}>
           <div className={styles.advNavLeft}>
-            <Image src={"/swirl-logo1.png"} width={100} height={100} />
+            <Image 
+              src={"/swirl-logo1.png"} 
+              width={100} 
+              height={100} 
+              priority 
+            />
           </div>
           <div className={styles.advNavRight}>
             <ul>
