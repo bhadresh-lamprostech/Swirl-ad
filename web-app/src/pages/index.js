@@ -2,10 +2,6 @@ import styles from '@/styles/Home.module.css';
 import Image from 'next/image';
 // import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from 'wagmi';
-import { useEffect, useState } from 'react';
-
-
-
 // import {sample} from "swirl-sdk-sample";
 import "@rainbow-me/rainbowkit/styles.css";
 import {
@@ -32,6 +28,7 @@ export default function Home() {
                 height={130}
                 alt={"icon"}
                 src="/swirl-logo1.png"
+                priority
               />
             </div>
             <div className={styles.btn}>
