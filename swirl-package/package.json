@@ -1,8 +1,12 @@
 {
-  "name": "swirl-sdk-sample",
+  "name": "swirl-pkg",
   "version": "1.0.6",
-  "description": "The future of de-centralised advertisement",
-  "main": "index.js",
+  "description": "Experience privacy-first advertising, where relevance meets respect",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "api.js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,9 +14,15 @@
     "type": "git",
     "url": "git+https://github.com/RahulAtLamp/swirl/tree/development/swirl-package"
   },
-  "author": "Rahul Rajan",
+  "author": "Rahul Rajan, Bhadresh Makwana",
   "license": "ISC",
+  "keywords": [
+    "advertisement",
+    "Decentralised advertisement",
+    "Swirl"
+  ],
   "dependencies": {
-    "pexels": "^1.4.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
