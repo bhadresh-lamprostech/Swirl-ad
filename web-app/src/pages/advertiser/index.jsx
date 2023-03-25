@@ -6,6 +6,8 @@ import "reactjs-popup/dist/index.css";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import { ethers } from "ethers";
 import { ToastContainer, toast } from "react-toastify";
+import { motion } from 'framer-motion';
+import { BarChart, Bar, XAxis, YAxis, Legend, Tooltip } from 'recharts';
 import "react-toastify/dist/ReactToastify.css";
 
 import { useEffect, useState } from "react";
@@ -20,6 +22,24 @@ export default function Advertiser() {
   });
 
   const [matic, setMatic] = useState();
+  const [selectedCampaign, setSelectedCampaign] = useState('Campaign A');
+  const [mounted, setMounted] = useState(false);
+
+  const campaignsData = [
+    { name: 'Campaign A', Impressions: 12000, Clicks: 800, Conversions: 120 },
+    { name: 'Campaign B', Impressions: 8000, Clicks: 500, Conversions: 80 },
+    { name: 'Campaign C', Impressions: 6000, Clicks: 400, Conversions: 60 },
+  ];
+  
+
+  const data = campaignsData.map((campaign) => {
+    return {
+      name: campaign.name,
+      Impressions: campaign.Impressions,
+      Clicks: campaign.Clicks,
+      Conversions: campaign.Conversions
+    }
+  });
 
   const txSuccess = () => toast.success("hurray.. deposite success");
 
@@ -58,6 +78,7 @@ export default function Advertiser() {
   // console.log(address);
   useEffect(() => {
     getAdvBal();
+    setMounted(true);
   }, []);
   const exceptThisSymbols = ["e", "E", "+", "-"];
 
@@ -92,6 +113,7 @@ export default function Advertiser() {
     setMatic(ethers.utils.formatUnits(getAdv));
   };
 
+  if (!mounted) return null
   return (
     <AdvLayout>
       <div className={styles.dashboardMain}>
@@ -142,8 +164,44 @@ export default function Advertiser() {
           </div>
         </div>
         <div className={styles.graphBox}>
-          <div className={styles.advList}></div>
-          <div className={styles.graph}></div>
+          {/* <motion.div
+            className={styles.campaignGraphContainer}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            style={{ display: 'flex' }}
+          > */}
+            <div className={styles.campaignsList}>
+              {campaignsData.map((campaign) => (
+                <motion.div
+                  key={campaign.name}
+                  className={ selectedCampaign === campaign.name ? styles.active : styles.inActive}
+                  onClick={() => setSelectedCampaign(campaign.name)}
+                  initial={{ x: -50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {campaign.name}
+                </motion.div>
+              ))}
+            </div>
+            <div className={styles.graphContainer}>
+              <BarChart
+                width={600}
+                height={300}
+                data={[data.find((d) => d.name === selectedCampaign)]}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              >
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="Impressions" fill="#4C7CFF" animationBegin={0} animationDuration={1500} />
+                <Bar dataKey="Clicks" fill="#2E9AFE" animationBegin={0} animationDuration={1500} />
+                <Bar dataKey="Conversions" fill="#0000FF" animationBegin={0} animationDuration={1500} />
+              </BarChart>
+            </div>
+          {/* </motion.div> */}
         </div>
 
         <ToastContainer

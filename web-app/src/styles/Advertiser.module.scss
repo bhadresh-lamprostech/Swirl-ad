@@ -144,17 +144,17 @@ li.Active {
     @include flexing;
     width: 98%;
     border: 1px solid var(--pink);
-    margin: 20px 10px auto;
+    margin: 30px 10px auto;
     border-radius: 20px;
-    height: 300px;
+    height: 400px;
     box-shadow: -1px -1px 10px 2px var(--pink);
 
-    .advList {
-
+    .campaignsList {
+      flex: 1 1 50%;
     }
 
-    .graph {
-
+    .graphContainer {
+      flex: 1 1 auto;
     }
   }
 }
