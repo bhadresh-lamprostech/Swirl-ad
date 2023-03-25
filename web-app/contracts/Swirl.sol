@@ -95,7 +95,7 @@ function publisherExists(address _wallet) private view returns (bool) {
 //     advertisers[advertiserId].balance += _balance;
 // }
 
-  function deposit(address _advertiserAddress) public payable {
+  function deposit(address _advertiserAddress)  public payable {
         uint256 advertiserId;
         for (uint256 i = 1; i <= advertiserCounter; i++) {
             if (advertisers[i].wallet == _advertiserAddress) {
@@ -108,7 +108,13 @@ function publisherExists(address _wallet) private view returns (bool) {
 
         advertisers[advertiserId].balance += msg.value;
     }
-
+    function getAdvertiserBalance(address _wallet) public view returns (uint256) {
+    for (uint256 i = 1; i <= advertiserCounter; i++) {
+        if (advertisers[i].wallet == _wallet) {
+            return advertisers[i].balance;
+        }
+    }
+}
     function withdraw(uint256 _publisherId, uint256 _campaignId) public {
     require(_publisherId <= publisherCounter, "Publisher does not exist");
     require(_campaignId <= campaignCounter, "Campaign does not exist");
@@ -217,11 +223,12 @@ function createCampaign(address _advertiserAddress, uint256 _balance, string mem
         }
     }
 
+    require(advertisers[advertiserId].balance >= _balance, "Balance of advertiser is not enough");
+
     campaignCounter++;
     campaigns[campaignCounter] = Campaign(campaignCounter, advertiserId, _balance, _campaignName, _budget, _payclick, _stringCID);
-    advertisers[advertiserId].balance += _balance;
+    advertisers[advertiserId].balance -= _balance;
 }
-
 
 function getCampaign(address _advertiserAddress) public view returns (uint256[] memory ids,  uint256[] memory balances, string[] memory campaignNames, string[] memory budgets, string[] memory payclicks, string[] memory stringCIDs) {
     ids = new uint256[](campaignCounter);

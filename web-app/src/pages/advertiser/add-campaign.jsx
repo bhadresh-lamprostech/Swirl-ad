@@ -9,7 +9,7 @@ import { ethPersonalSign } from "@polybase/eth";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import { Web3Storage } from "web3.storage";
 
-const Swirl_address = "0x0f2e50A659CFB72c237bEb0Ba0554F25A9dA9518";
+const Swirl_address = "0x2682ae42cD8B09a0e94dE4f050aB81A86dc8C296";
 
 function AddCampaign() {
   const [campaignData, setCampaginData] = useState({
