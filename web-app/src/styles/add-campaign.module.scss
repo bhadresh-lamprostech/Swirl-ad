@@ -83,3 +83,17 @@
   font-weight: 550;
   font-family: var(--font2-bold);
 }
+
+.btn {
+  background-color: var(--yellow);
+  border: 1px solid transparent;
+  padding: 10px 20px;
+  color: var(--text-color);
+  border-radius: 10px;
+  font-family: var(--font2-bold);
+  font-size: 20px;
+
+  &:hover {
+    background-color: var(--pink);
+  }
+}

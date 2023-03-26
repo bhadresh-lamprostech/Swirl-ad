@@ -31,11 +31,11 @@ function Navbar() {
                   Generate Token
                 </li>
               </Link>
-              <Link href="/publisher/docs">
+              <a href="https://swirl.gitbook.io/product-docs/" target={"__blank"}>
                 <li className={router.asPath === "/publisher/docs" ? styles.Active : null}>
                   Docs
                 </li>
-              </Link>
+              </a>
             </ul>
           </div>
         </div>

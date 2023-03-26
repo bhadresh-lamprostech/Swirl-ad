@@ -6,8 +6,9 @@ import "reactjs-popup/dist/index.css";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import { ethers } from "ethers";
 import { ToastContainer, toast } from "react-toastify";
-import { motion } from 'framer-motion';
-import { BarChart, Bar, XAxis, YAxis, Legend, Tooltip } from 'recharts';
+import { motion } from "framer-motion";
+import { BarChart, Bar, XAxis, YAxis, Legend, Tooltip } from "recharts";
+import DepositePopup from "./depositepopup";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useEffect, useState } from "react";
@@ -22,23 +23,24 @@ export default function Advertiser() {
   });
 
   const [matic, setMatic] = useState();
-  const [selectedCampaign, setSelectedCampaign] = useState('Campaign A');
+  const [selectedCampaign, setSelectedCampaign] = useState("Campaign A");
   const [mounted, setMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const campaignsData = [
-    { name: 'Campaign A', Impressions: 12000, Clicks: 800, Conversions: 120 },
-    { name: 'Campaign B', Impressions: 8000, Clicks: 500, Conversions: 80 },
-    { name: 'Campaign C', Impressions: 6000, Clicks: 400, Conversions: 60 },
+    { name: "Campaign A", Impressions: 12000, Clicks: 800, Conversions: 120 },
+    { name: "Campaign B", Impressions: 8000, Clicks: 500, Conversions: 80 },
+    { name: "Campaign C", Impressions: 6000, Clicks: 400, Conversions: 60 },
+    { name: "Campaign D", Impressions: 4000, Clicks: 200, Conversions: 40 },
   ];
-  
 
   const data = campaignsData.map((campaign) => {
     return {
       name: campaign.name,
       Impressions: campaign.Impressions,
       Clicks: campaign.Clicks,
-      Conversions: campaign.Conversions
-    }
+      Conversions: campaign.Conversions,
+    };
   });
 
   const txSuccess = () => toast.success("hurray.. deposite success");
@@ -113,7 +115,11 @@ export default function Advertiser() {
     setMatic(ethers.utils.formatUnits(getAdv));
   };
 
-  if (!mounted) return null
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
+  if (!mounted) return null;
   return (
     <AdvLayout>
       <div className={styles.dashboardMain}>
@@ -124,33 +130,50 @@ export default function Advertiser() {
               <div className={styles.title}>Total Locked</div>
               <div className={styles.value}>{matic} Matic</div>
               <div>
-                <Popup
-                  trigger={<button> Deposite</button>}
-                  position="top center"
-                >
-                  <div>
-                    <lable for="deposite" style={{ color: "black" }}>
-                      Enter Deposite Amount:
-                    </lable>
-                    <input
-                      id="name"
-                      type="number"
-                      step="0.1"
-                      min="0"
-                      max="20"
-                      onKeyDown={(e) =>
-                        exceptThisSymbols.includes(e.key) && e.preventDefault()
-                      }
-                      onChange={(e) => {
-                        setDepositeFund({
-                          ...depositeFund,
-                          fund: e.target.value,
-                        });
-                      }}
-                    />
-                    <button onClick={() => depositeBtn()}>Deposite</button>
-                  </div>
-                </Popup>
+                <input
+                  className={styles.depoBtn}
+                  type="button"
+                  value="Deposite"
+                  onClick={togglePopup}
+                />
+                {isOpen && (
+                  <DepositePopup
+                    content={
+                      <>
+                        <div className={styles.popupMain}>
+                          <lable className={styles.popupLabel} for="deposite">
+                            Enter Deposite Amount
+                          </lable>
+                          <input
+                            className={styles.popupInput}
+                            id="name"
+                            type="number"
+                            step="0.1"
+                            min="0"
+                            max="20"
+                            onKeyDown={(e) =>
+                              exceptThisSymbols.includes(e.key) &&
+                              e.preventDefault()
+                            }
+                            onChange={(e) => {
+                              setDepositeFund({
+                                ...depositeFund,
+                                fund: e.target.value,
+                              });
+                            }}
+                          />
+                          <button
+                            className={styles.popupBtn}
+                            onClick={() => depositeBtn()}
+                          >
+                            Deposite
+                          </button>
+                        </div>
+                      </>
+                    }
+                    handleClose={togglePopup}
+                  />
+                )}
               </div>
             </div>
             <div className={styles.card}>
@@ -171,36 +194,78 @@ export default function Advertiser() {
             transition={{ duration: 0.5 }}
             style={{ display: 'flex' }}
           > */}
-            <div className={styles.campaignsList}>
-              {campaignsData.map((campaign) => (
+          <div className={styles.campaignsList}>
+            {campaignsData.map((campaign) => (
+              <div>
                 <motion.div
                   key={campaign.name}
-                  className={ selectedCampaign === campaign.name ? styles.active : styles.inActive}
+                  className={styles.campaignSingle}
                   onClick={() => setSelectedCampaign(campaign.name)}
                   initial={{ x: -50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.5 }}
                 >
-                  {campaign.name}
+                  <div className={styles.campaignName}>{campaign.name}</div>
+                  <div className={styles.campaignMainData}>
+                    <div className={styles.campaignDataOuter}>
+                      <div className={styles.campaignDataLabel}>Impression</div>
+                      <div className={styles.campaignDataValue}>
+                        {campaign.Impressions}
+                      </div>
+                    </div>
+                    <div className={styles.campaignDataOuter}>
+                      <div className={styles.campaignDataLabel}>Clicks</div>
+                      <div className={styles.campaignDataValue}>
+                        {campaign.Clicks}
+                      </div>
+                    </div>
+                    <div className={styles.campaignDataOuter}>
+                      <div className={styles.campaignDataLabel}>
+                        Conversions
+                      </div>
+                      <div className={styles.campaignDataValue}>
+                        {campaign.Conversions}
+                      </div>
+                    </div>
+                    <div className={styles.campaignDataOuter}>
+                      <button className={styles.campaignDataBtn}>More</button>
+                    </div>
+                  </div>
                 </motion.div>
-              ))}
-            </div>
-            <div className={styles.graphContainer}>
-              <BarChart
-                width={600}
-                height={300}
-                data={[data.find((d) => d.name === selectedCampaign)]}
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-              >
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="Impressions" fill="#4C7CFF" animationBegin={0} animationDuration={1500} />
-                <Bar dataKey="Clicks" fill="#2E9AFE" animationBegin={0} animationDuration={1500} />
-                <Bar dataKey="Conversions" fill="#0000FF" animationBegin={0} animationDuration={1500} />
-              </BarChart>
-            </div>
+              </div>
+            ))}
+          </div>
+          <div className={styles.graphContainer}>
+            <BarChart
+              width={600}
+              height={300}
+              data={[data.find((d) => d.name === selectedCampaign)]}
+              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+            >
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar
+                dataKey="Impressions"
+                fill="#4C7CFF"
+                animationBegin={0}
+                animationDuration={1500}
+              />
+              <Bar
+                dataKey="Clicks"
+                fill="#2E9AFE"
+                animationBegin={0}
+                animationDuration={1500}
+              />
+              <Bar
+                dataKey="Conversions"
+                fill="#0000FF"
+                animationBegin={0}
+                animationDuration={1500}
+              />
+            </BarChart>
+          </div>
           {/* </motion.div> */}
         </div>
 
