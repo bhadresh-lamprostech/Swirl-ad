@@ -18,7 +18,25 @@ function AddCampaign() {
     campaignPpckick: null,
     contentCid: null,
   });
+  const db = new Polybase({
+    defaultNamespace:
+      "pk/0x3dd0a82b180d872bf79edd4659c433f1a0165028da146e710a74d542f8217eaf31e842c710e1607da901443668a3821a84aaefe62200f250b4bed12b16e871ca/Advertise",
+  });
+  const collectionReference = db.collection("Advertise");
+  const updateData = async () => {
+    const uniqueId = Math.random().toString(36).substring(2);
+    const recordData = await collectionReference.create([
+      uniqueId,
+      address,
+      cid,
+    ]);
+    console.log(recordData);
+  };
 
+  const getData = async () => {
+    const { data } = await collectionReference.record("tt14gns8zl").get();
+    console.log(data);
+  };
   const { address } = useAccount();
   const client = new Web3Storage({
     token:
@@ -88,7 +106,7 @@ function AddCampaign() {
       const contract = await getContract();
       const tx = await contract.createCampaign(
         address,
-        campaignData.campaignBudget,
+        ethers.utils.parseEther(campaignData.campaignBudget.toString()),
 
         campaignData.campaignName,
         0,
@@ -97,6 +115,7 @@ function AddCampaign() {
         cid
       );
       await tx.wait();
+      updateData();
 
       console.log(tx);
     } catch (error) {
@@ -187,6 +206,7 @@ function AddCampaign() {
             />
           </div>
           <button onClick={() => uploadCampaign()}>uploadCampaign</button>
+          <button onClick={() => getData()}>db update</button>
         </div>
       </div>
     </AdvLayout>
