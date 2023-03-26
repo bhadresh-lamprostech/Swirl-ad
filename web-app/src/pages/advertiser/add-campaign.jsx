@@ -205,8 +205,7 @@ function AddCampaign() {
               }}
             />
           </div>
-          <button onClick={() => uploadCampaign()}>uploadCampaign</button>
-          <button onClick={() => getData()}>db update</button>
+          <button onClick={() => uploadCampaign()} className={ styles.btn }>upload Campaign</button>
         </div>
       </div>
     </AdvLayout>

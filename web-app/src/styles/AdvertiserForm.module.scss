@@ -3,7 +3,7 @@
   background-repeat: no-repeat;
   color: #ffffff;
   height: 100vh;
-  object-fit: contain;
+  background-size: cover;
   width: 100%;
   font-family: var(--font2-bold);
 
@@ -14,7 +14,10 @@
     .advFormHeader {
       font-size: 30px;
       text-align: center;
+      margin-left: 10%;
       width: 100%;
+      padding-top: 80px;
+      font-family: var(--font2-bold);
     }
 
     #firstDiv {
@@ -36,10 +39,11 @@
       label {
         flex-grow: 1;
         width: 180px;
-        font-size: 20px;
+        font-size: 25px;
         text-align: right;
         margin-right: 20px;
         white-space: nowrap;
+        font-family: var(--font1);
       }
 
       input[type="text"],
@@ -50,6 +54,8 @@
         padding: 10px;
         width: 200px;
         resize: none;
+        border-radius: 10px;
+        border: none;
       }
 
       textarea {
@@ -58,15 +64,24 @@
         width: 200px;
         resize: none;
         height: 120px;
+        border-radius: 10px;
+        border: none;
       }
 
       .submitForm {
-        padding: 10px 20px;
+        height: -moz-fit-content;
+        height: fit-content;
+        width: -moz-fit-content;
+        width: fit-content;
+        padding: 10px;
+        margin: 0 auto;
         background-color: var(--purple);
-        border: 1px solid transparent;
-        cursor: pointer;
-        color: var(--text-color);
-        text-align: center;
+        color: white;
+        border-radius: 10px;
+        border: none;
+        font-size: 20px;
+        font-weight: 550;
+        font-family: var(--font2-bold);
 
         &:hover {
           border: 1px solid var(--text-color);
