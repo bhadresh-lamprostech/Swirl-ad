@@ -7,7 +7,7 @@ import { Web3Storage } from "web3.storage";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 const Swirl_address = "0x2682ae42cD8B09a0e94dE4f050aB81A86dc8C296";
 
-export default function onBoard() {
+export default function Onboard() {
   const { isConnected, address } = useAccount();
   const Route = useRouter();
 

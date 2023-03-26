@@ -36,7 +36,7 @@ function GenerateToken() {
         <div className={styles.genOuter}>
           <div className={styles.genHeader}>Generate Tokens</div>
           <div className={styles.genContent}>
-            If you're looking to monetize your content, Project Swirl offers an innovative advertisement platform that can help increase your ad revenue. With our unique token system, you can easily integrate our advertisement package into your application, and gain access to powerful targeting and optimization tools. Sign up for our services today and start monetizing your content efficiently.
+            If you are looking to monetize your content, Project Swirl offers an innovative advertisement platform that can help increase your ad revenue. With our unique token system, you can easily integrate our advertisement package into your application, and gain access to powerful targeting and optimization tools. Sign up for our services today and start monetizing your content efficiently.
           </div>
           <button className={styles.genBtn}>Generate</button>
         </div>

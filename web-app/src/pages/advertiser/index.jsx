@@ -79,9 +79,11 @@ export default function Advertiser() {
 
   // console.log(address);
   useEffect(() => {
-    getAdvBal();
+    GetAdvBal();
+  });
+  useEffect(() => {
     setMounted(true);
-  }, []);
+  }, [setMounted]);
   const exceptThisSymbols = ["e", "E", "+", "-"];
 
   // console.log(advertiserData);
@@ -93,7 +95,7 @@ export default function Advertiser() {
       });
       await tx.wait();
       txSuccess();
-      getAdvBal();
+      GetAdvBal();
 
       console.log(tx);
     } catch (error) {
@@ -101,7 +103,7 @@ export default function Advertiser() {
     }
   };
 
-  const getAdvBal = async () => {
+  const GetAdvBal = async () => {
     const contract = await getContract();
     console.log(contract);
     const getAdv = await contract.getAdvertiserBalance(address);
@@ -196,43 +198,39 @@ export default function Advertiser() {
           > */}
           <div className={styles.campaignsList}>
             {campaignsData.map((campaign) => (
-              <div>
-                <motion.div
-                  key={campaign.name}
-                  className={styles.campaignSingle}
-                  onClick={() => setSelectedCampaign(campaign.name)}
-                  initial={{ x: -50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <div className={styles.campaignName}>{campaign.name}</div>
-                  <div className={styles.campaignMainData}>
-                    <div className={styles.campaignDataOuter}>
-                      <div className={styles.campaignDataLabel}>Impression</div>
-                      <div className={styles.campaignDataValue}>
-                        {campaign.Impressions}
-                      </div>
-                    </div>
-                    <div className={styles.campaignDataOuter}>
-                      <div className={styles.campaignDataLabel}>Clicks</div>
-                      <div className={styles.campaignDataValue}>
-                        {campaign.Clicks}
-                      </div>
-                    </div>
-                    <div className={styles.campaignDataOuter}>
-                      <div className={styles.campaignDataLabel}>
-                        Conversions
-                      </div>
-                      <div className={styles.campaignDataValue}>
-                        {campaign.Conversions}
-                      </div>
-                    </div>
-                    <div className={styles.campaignDataOuter}>
-                      <button className={styles.campaignDataBtn}>More</button>
+              <motion.div
+                key={campaign.name}
+                className={styles.campaignSingle}
+                onClick={() => setSelectedCampaign(campaign.name)}
+                initial={{ x: -50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className={styles.campaignName}>{campaign.name}</div>
+                <div className={styles.campaignMainData}>
+                  <div className={styles.campaignDataOuter}>
+                    <div className={styles.campaignDataLabel}>Impression</div>
+                    <div className={styles.campaignDataValue}>
+                      {campaign.Impressions}
                     </div>
                   </div>
-                </motion.div>
-              </div>
+                  <div className={styles.campaignDataOuter}>
+                    <div className={styles.campaignDataLabel}>Clicks</div>
+                    <div className={styles.campaignDataValue}>
+                      {campaign.Clicks}
+                    </div>
+                  </div>
+                  <div className={styles.campaignDataOuter}>
+                    <div className={styles.campaignDataLabel}>Conversions</div>
+                    <div className={styles.campaignDataValue}>
+                      {campaign.Conversions}
+                    </div>
+                  </div>
+                  <div className={styles.campaignDataOuter}>
+                    <button className={styles.campaignDataBtn}>More</button>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
           <div className={styles.graphContainer}>
