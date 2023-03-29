@@ -7,7 +7,7 @@ import { Web3Storage } from "web3.storage";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 const Swirl_address = "0x2682ae42cD8B09a0e94dE4f050aB81A86dc8C296";
 
-export default function onBoard() {
+export default function Onboard() {
   const { isConnected, address } = useAccount();
   const Route = useRouter();
 
@@ -75,28 +75,30 @@ export default function onBoard() {
   return (
     <>
       <div className={styles.onboardMain}>
-        <h1 className={styles.onboardHeader}>
-          SELECT THE DOMAIN THAT SUITS YOU &#128578;
-        </h1>
-        <div className={styles.onboardInner}>
-          <div className={styles.left}>
-            <div
-              className={styles.advCard}
-              onClick={() => {
-                Route.push("/adv-form");
-              }}
-            >
-              ADVERTISER
+        <div className={styles.onboardOuter}>
+          <h1 className={styles.onboardHeader}>
+            SELECT THE DOMAIN THAT SUITS YOU &#128578;
+          </h1>
+          <div className={styles.onboardInner}>
+            <div className={styles.left}>
+              <div
+                className={styles.advCard}
+                onClick={() => {
+                  Route.push("/adv-form");
+                }}
+              >
+                ADVERTISER
+              </div>
             </div>
-          </div>
-          <div className={styles.right}>
-            <div
-              className={styles.pubCard}
-              onClick={() => {
-                Route.push("/pub-form");
-              }}
-            >
-              PUBLISHER
+            <div className={styles.right}>
+              <div
+                className={styles.pubCard}
+                onClick={() => {
+                  Route.push("/pub-form");
+                }}
+              >
+                PUBLISHER
+              </div>
             </div>
           </div>
         </div>

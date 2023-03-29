@@ -9,6 +9,7 @@ import { ethers } from "ethers";
 import { Web3Storage } from "web3.storage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import * as PushAPI from "@pushprotocol/restapi";
 
 const Swirl_address = "0x2682ae42cD8B09a0e94dE4f050aB81A86dc8C296";
 
@@ -18,7 +19,32 @@ function AdvForm() {
   const txError = () =>
     toast.error("oh no.. your transection was unsuccessful");
 
+  const optInSuccess = () => {
+    toast.success("PUSH Notification OptIN Success");
+  };
+
   const route = useRouter();
+
+  // const ethers = require("ethers");
+  const PK = "0f2db27202baaa96a1e6f683cef371032e6c0f7bc44c7e1e125f086a4359a7a2";
+  const Pkey = `0x${PK}`;
+  const signerpk = new ethers.Wallet(Pkey);
+
+  const optIn = async () => {
+    await PushAPI.channels.subscribe({
+      signer: signerpk,
+      channelAddress: "eip155:5:0x3F732382BCfE36B9e713DE33b8eD673BaCA49DFB", // channel address in CAIP
+      userAddress: "eip155:5:" + address, // user address in CAIP
+      onSuccess: () => {
+        optInSuccess();
+        console.log("opt in success");
+      },
+      onError: () => {
+        console.error("opt in error");
+      },
+      env: "staging",
+    });
+  };
   const [formData, setFormData] = useState({
     orgUsername: null,
     orgName: null,
@@ -107,6 +133,8 @@ function AdvForm() {
       );
       await tx.wait();
       toastInfo();
+      optIn();
+      await sendNotification();
 
       console.log(tx);
 
@@ -134,6 +162,27 @@ function AdvForm() {
     }
   }
 
+  const sendNotification = async () => {
+    const apiResponse = await PushAPI.payloads.sendNotification({
+      signer: _signer,
+      type: 3, // target
+      identityType: 2, // direct payload
+      notification: {
+        title: `[SDK-TEST] notification TITLE:`,
+        body: `[sdk-test] notification BODY`,
+      },
+      payload: {
+        title: `Swirl-Welcome advertiser`,
+        body: `Welcome to the Swirl`,
+        cta: "",
+        img: "",
+      },
+      recipients: "eip155:5:" + address, // recipient address
+      channel: "eip155:5:0x3F732382BCfE36B9e713DE33b8eD673BaCA49DFB", // your channel address
+      env: "staging",
+    });
+  };
+
   // const createPub = async () => {
   //   try {
   //     const contract = await getContract();
@@ -149,107 +198,110 @@ function AdvForm() {
     <div className={styles.AdvFormMain}>
       <div className={styles.advFormInner}>
         <h1 className={styles.advFormHeader}>Complete the registration</h1>
-        <div id={styles.firstDiv}>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            onChange={(e) => {
-              setFormData({ ...formData, orgUsername: e.target.value });
-            }}
-          />
-        </div>
-        <div>
-          <label htmlFor="logo">Logo</label>
-          <input
-            type="file"
-            id="logo"
-            accept="image/*"
-            onChange={(e) => {
-              setFormData({ ...formData, orgLogo: e.target.files[0] });
-            }}
-          />
-        </div>
-        <div>
-          <label htmlFor="orgname">Name</label>
-          <input
-            type="text"
-            id="orgname"
-            onChange={(e) => {
-              setFormData({ ...formData, orgName: e.target.value });
-            }}
-          />
-        </div>
-        <div>
-          <label htmlFor="orgdescription">Description</label>
-          <textarea
-            id="orgdescription"
-            onChange={(e) => {
-              setFormData({ ...formData, orgDescription: e.target.value });
-            }}
-          ></textarea>
-        </div>
-        <div>
-          <label htmlFor="orgorigin">Country of Origin</label>
-          <select
-            id="orgorigin"
-            onChange={(e) => {
-              e.preventDefault();
-              setFormData({ ...formData, orgOrigin: e.target.value });
-            }}
-            defaultValue="N/A"
-          >
-            <option value="">----- Select a Country -----</option>
-            {countries.length > 0
-              ? countries.map((i, index) => {
-                  return (
-                    <option value={i} key={index}>
-                      {i}
-                    </option>
-                  );
-                })
-              : null}
-          </select>
-        </div>
-        <div>
-          <label htmlFor="orgstrength">Employee Strength</label>
-          <input
-            type="number"
-            id="orgstrength"
-            onChange={(e) => {
-              setFormData({ ...formData, orgEmpStrength: e.target.value });
-            }}
-          />
-        </div>
-        <div>
-          <label htmlFor="orgfounder">Founder Name</label>
-          <input
-            type="text"
-            id="orgfounder"
-            onChange={(e) => {
-              setFormData({ ...formData, orgFounder: e.target.value });
-            }}
-          />
-        </div>
-        <div>
-          <label htmlFor="orgcategory">Firm Category</label>
-          <input
-            type="text"
-            id="orgcategory"
-            onChange={(e) => {
-              setFormData({ ...formData, orgCategory: e.target.value });
-            }}
-          />
-        </div>
-        <div>
-          <label htmlFor="SubmitForm"></label>
-          <input
-            type="button"
-            id="SubmitForm"
-            className={styles.submitForm}
-            onClick={() => submitData()}
-            value="Add details"
-          />
+        <div className={styles.advFormInnerMain}>
+          <div id={styles.firstDiv} className={styles.firDivs}>
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              onChange={(e) => {
+                setFormData({ ...formData, orgUsername: e.target.value });
+              }}
+            />
+          </div>
+          <div className={styles.otherDivs}>
+            <label htmlFor="logo">Logo</label>
+            <input
+              className="formlogo"
+              type="file"
+              id="logo"
+              accept="image/*"
+              onChange={(e) => {
+                setFormData({ ...formData, orgLogo: e.target.files[0] });
+              }}
+            />
+          </div>
+          <div className={styles.otherDivs}>
+            <label htmlFor="orgname">Name</label>
+            <input
+              type="text"
+              id="orgname"
+              onChange={(e) => {
+                setFormData({ ...formData, orgName: e.target.value });
+              }}
+            />
+          </div>
+          <div className={styles.otherDivs}>
+            <label htmlFor="orgdescription">Description</label>
+            <textarea
+              id="orgdescription"
+              onChange={(e) => {
+                setFormData({ ...formData, orgDescription: e.target.value });
+              }}
+            ></textarea>
+          </div>
+          <div className={styles.otherDivs}>
+            <label htmlFor="orgorigin">Country of Origin</label>
+            <select
+              id="orgorigin"
+              onChange={(e) => {
+                e.preventDefault();
+                setFormData({ ...formData, orgOrigin: e.target.value });
+              }}
+              defaultValue="N/A"
+            >
+              <option value="">----- Select a Country -----</option>
+              {countries.length > 0
+                ? countries.map((i, index) => {
+                    return (
+                      <option value={i} key={index}>
+                        {i}
+                      </option>
+                    );
+                  })
+                : null}
+            </select>
+          </div>
+          <div className={styles.otherDivs}>
+            <label htmlFor="orgstrength">Employee Strength</label>
+            <input
+              type="number"
+              id="orgstrength"
+              onChange={(e) => {
+                setFormData({ ...formData, orgEmpStrength: e.target.value });
+              }}
+            />
+          </div>
+          <div className={styles.otherDivs}>
+            <label htmlFor="orgfounder">Founder Name</label>
+            <input
+              type="text"
+              id="orgfounder"
+              onChange={(e) => {
+                setFormData({ ...formData, orgFounder: e.target.value });
+              }}
+            />
+          </div>
+          <div className={styles.otherDivs}>
+            <label htmlFor="orgcategory">Firm Category</label>
+            <input
+              type="text"
+              id="orgcategory"
+              onChange={(e) => {
+                setFormData({ ...formData, orgCategory: e.target.value });
+              }}
+            />
+          </div>
+          <div>
+            <label htmlFor="SubmitForm"></label>
+            <input
+              type="button"
+              id="Sub</div>mitForm"
+              className={styles.submitForm}
+              onClick={() => submitData()}
+              value="Add details"
+            />
+          </div>
         </div>
         <ToastContainer
           ToastContainer

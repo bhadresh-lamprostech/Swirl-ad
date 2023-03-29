@@ -46,7 +46,7 @@
   background-image: url("/static/gradient2.svg");
   position: fixed;
   bottom: 0;
-  z-index: 1111 !important;
+  /* z-index: 1111 !important; */
   right: 0;
   width: 400px;
   height: 400px;
@@ -230,6 +230,7 @@
   background-color: transparent;
   color: #ffffff;
   border: 1px solid var(--yellow);
+  cursor: pointer;
 }
 
 .pubSection {
@@ -319,6 +320,7 @@
   background-color: transparent;
   color: #ffffff;
   border: 1px solid var(--yellow);
+  cursor: pointer;
 }
 
 .footer {
@@ -420,5 +422,52 @@
 
   .pubSection .pubLeft {
     display: none;
+  }
+}
+
+@media screen and (min-width: 2561px) {
+}
+
+@media screen and (min-width: 2000px) and (max-width: 2560px) {
+}
+
+@media screen and (min-width: 1600px) and (max-width: 1999px) {
+}
+
+@media screen and (min-width: 1440px) and (max-width: 1599px) {
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1439px) {
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+}
+
+@media screen and (max-width: 767px) {
+  .landing {
+    width: fit-content;
+  }
+
+  .hero .tagline {
+    font-size: 45px;
+  }
+
+  .advSection .advLeft .img {
+    width: 300px;
+    height: 400px;
+    object-fit: contain;
+    z-index: 100;
+    margin-top: 100px;
+  }
+
+  .advSection .advLeft .bg {
+    top: 100px;
+    z-index: -1;
+    position: absolute;
+    width: 700px;
+    height: 600px;
+    margin-left: -100px;
+    object-fit: contain;
+    transform: scale(1.25);
   }
 }
