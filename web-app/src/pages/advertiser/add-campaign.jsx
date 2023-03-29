@@ -1,5 +1,5 @@
 import React from "react";
-import AdvLayout from "./adv-layout";
+import AdvLayout from "../../Components/adv-layout";
 import styles from "@/styles/add-campaign.module.scss";
 import { useState, useEffect } from "react";
 import { useAccount, useSigner } from "wagmi";

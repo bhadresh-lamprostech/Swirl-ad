@@ -2,7 +2,7 @@ import '@/styles/globals.css'
 // import type { AppProps } from 'next/app'
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 import {
-  getDefaultWallets,
+  getDefaultWallets, RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
@@ -31,7 +31,9 @@ export default function App({ Component, pageProps }) {
 
   return (
     <WagmiConfig client={wagmiClient}>
-      <Component {...pageProps} />
+      <RainbowKitProvider chains={chains}>
+        <Component {...pageProps} />
+      </RainbowKitProvider>
     </WagmiConfig>
-  )
+  );
 }
