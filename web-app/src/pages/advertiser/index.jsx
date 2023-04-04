@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
-const Swirl_address = "0x2682ae42cD8B09a0e94dE4f050aB81A86dc8C296";
+const Swirl_address = "0x39a528d0B35325fBdA269F02AF56Ddfa39130b60";
 
 export default function Advertiser() {
   const { address } = useAccount();

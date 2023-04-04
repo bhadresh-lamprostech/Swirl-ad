@@ -11,7 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as PushAPI from "@pushprotocol/restapi";
 
-const Swirl_address = "0x2682ae42cD8B09a0e94dE4f050aB81A86dc8C296";
+const Swirl_address = "0x39a528d0B35325fBdA269F02AF56Ddfa39130b60";
 
 function AdvForm() {
   const toastInfo = () =>
@@ -19,20 +19,18 @@ function AdvForm() {
   const txError = () =>
     toast.error("oh no.. your transection was unsuccessful");
 
-    const optInSuccess =()=>{
-      toast.success("PUSH Notification OptIN Success")
-    }
+  const optInSuccess = () => {
+    toast.success("PUSH Notification OptIN Success");
+  };
 
   const route = useRouter();
-
 
   // const ethers = require("ethers");
   const PK = "0f2db27202baaa96a1e6f683cef371032e6c0f7bc44c7e1e125f086a4359a7a2";
   const Pkey = `0x${PK}`;
   const signerpk = new ethers.Wallet(Pkey);
 
-
-  const optIn =async()=>{
+  const optIn = async () => {
     await PushAPI.channels.subscribe({
       signer: signerpk,
       channelAddress: "eip155:5:0x3F732382BCfE36B9e713DE33b8eD673BaCA49DFB", // channel address in CAIP
@@ -46,7 +44,7 @@ function AdvForm() {
       },
       env: "staging",
     });
-  }
+  };
   const [formData, setFormData] = useState({
     orgUsername: null,
     orgName: null,
@@ -136,7 +134,7 @@ function AdvForm() {
       await tx.wait();
       toastInfo();
       optIn();
-      await sendNotification()
+      await sendNotification();
 
       console.log(tx);
 
@@ -164,7 +162,7 @@ function AdvForm() {
     }
   }
 
-  const sendNotification = async() => {
+  const sendNotification = async () => {
     const apiResponse = await PushAPI.payloads.sendNotification({
       signer: _signer,
       type: 3, // target
@@ -183,7 +181,7 @@ function AdvForm() {
       channel: "eip155:5:0x3F732382BCfE36B9e713DE33b8eD673BaCA49DFB", // your channel address
       env: "staging",
     });
-  }
+  };
 
   // const createPub = async () => {
   //   try {

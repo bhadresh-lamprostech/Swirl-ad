@@ -9,7 +9,7 @@ import { ethPersonalSign } from "@polybase/eth";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import { Web3Storage } from "web3.storage";
 
-const Swirl_address = "0x2682ae42cD8B09a0e94dE4f050aB81A86dc8C296";
+const Swirl_address = "0x39a528d0B35325fBdA269F02AF56Ddfa39130b60";
 
 function AddCampaign() {
   const [campaignData, setCampaginData] = useState({
@@ -205,7 +205,9 @@ function AddCampaign() {
               }}
             />
           </div>
-          <button onClick={() => uploadCampaign()} className={ styles.btn }>upload Campaign</button>
+          <button onClick={() => uploadCampaign()} className={styles.btn}>
+            upload Campaign
+          </button>
         </div>
       </div>
     </AdvLayout>

@@ -80,20 +80,6 @@ function publisherExists(address _wallet) private view returns (bool) {
     return false;
 }
 
-//    function createCampaign(address _advertiserAddress, uint256 _balance) public {
-//     require(advertiserExists(_advertiserAddress) == true, "Advertiser does not exist");
-//     uint256 advertiserId;
-//     for (uint256 i = 1; i <= advertiserCounter; i++) {
-//         if (advertisers[i].wallet == _advertiserAddress) {
-//             advertiserId = i;
-//             break;
-//         }
-//     }
-
-//     campaignCounter++;
-//     campaigns[campaignCounter] = Campaign(campaignCounter, advertiserId, _balance);
-//     advertisers[advertiserId].balance += _balance;
-// }
 
   function deposit(address _advertiserAddress)  public payable {
         uint256 advertiserId;
@@ -179,12 +165,7 @@ function getAllAdvertisers() public view returns (uint256[] memory ids,  address
     return (ids, addresses, orgUsernames, orgnames, orgLogos, orgdiscriptions, orgOrigins, empstrengths, orgFounders, orgCatagories);
 }
 
-    // function getPublisher(uint256 _publisherId) public view returns (uint256, address) {
-    //     require(_publisherId <= publisherCounter, "Publisher does not exist");
-
-    //     Publisher memory publisher = publishers[_publisherId];
-    //     return (publisher.id, publisher.wallet);
-    // }
+  
 
 function getAllPublishers() public view returns (uint256[] memory ids,  address[] memory addresses, string[] memory orgUsernames, string[] memory orgnames, string[] memory orgLogos, string[] memory orgdiscriptions, string[] memory orgOrigins, string[] memory empstrengths, string[] memory orgFounders, string[] memory orgCatagories) {
      ids = new uint256[](publisherCounter);
@@ -228,6 +209,39 @@ function createCampaign(address _advertiserAddress, uint256 _balance, string mem
     campaignCounter++;
     campaigns[campaignCounter] = Campaign(campaignCounter, advertiserId, _balance, _campaignName, _budget, _payclick, _stringCID);
     advertisers[advertiserId].balance -= _balance;
+}
+
+function isPublished(uint256 _campaignId) public view returns (bool) {
+    require(_campaignId <= campaignCounter, "Campaign does not exist");
+    
+    Campaign memory campaign = campaigns[_campaignId];
+    return (campaign.balance > 0);
+}
+
+// Function to check if the campaign is withdrawn
+function isWithdrawn(uint256 _campaignId) public view returns (bool) {
+    require(_campaignId <= campaignCounter, "Campaign does not exist");
+    
+    Campaign memory campaign = campaigns[_campaignId];
+    return (campaign.balance == 0);
+}
+
+// Function to publish the campaign
+function publishCampaign(uint256 _campaignId) public {
+    require(_campaignId <= campaignCounter, "Campaign does not exist");
+    Campaign memory campaign = campaigns[_campaignId];
+    require(advertisers[campaign.advertiserId].balance >= campaign.balance, "Balance of advertiser is not enough");
+
+    advertisers[campaign.advertiserId].balance -= campaign.balance;
+}
+
+// Function to withdraw the campaign
+function withdrawCampaign(uint256 _campaignId) public {
+    require(_campaignId <= campaignCounter, "Campaign does not exist");
+    Campaign memory campaign = campaigns[_campaignId];
+
+    advertisers[campaign.advertiserId].balance += campaign.balance;
+    campaign.balance = 0;
 }
 
 function getCampaign(address _advertiserAddress) public view returns (uint256[] memory ids,  uint256[] memory balances, string[] memory campaignNames, string[] memory budgets, string[] memory payclicks, string[] memory stringCIDs) {

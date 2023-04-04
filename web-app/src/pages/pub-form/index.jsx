@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 
-const Swirl_address = "0x2682ae42cD8B09a0e94dE4f050aB81A86dc8C296";
+const Swirl_address = "0x39a528d0B35325fBdA269F02AF56Ddfa39130b60";
 
 function PubForm() {
   const [formData, setFormData] = useState({
