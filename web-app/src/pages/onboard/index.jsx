@@ -75,28 +75,30 @@ export default function Onboard() {
   return (
     <>
       <div className={styles.onboardMain}>
-        <h1 className={styles.onboardHeader}>
-          SELECT THE DOMAIN THAT SUITS YOU &#128578;
-        </h1>
-        <div className={styles.onboardInner}>
-          <div className={styles.left}>
-            <div
-              className={styles.advCard}
-              onClick={() => {
-                Route.push("/adv-form");
-              }}
-            >
-              ADVERTISER
+        <div className={styles.onboardOuter}>
+          <h1 className={styles.onboardHeader}>
+            SELECT THE DOMAIN THAT SUITS YOU &#128578;
+          </h1>
+          <div className={styles.onboardInner}>
+            <div className={styles.left}>
+              <div
+                className={styles.advCard}
+                onClick={() => {
+                  Route.push("/adv-form");
+                }}
+              >
+                ADVERTISER
+              </div>
             </div>
-          </div>
-          <div className={styles.right}>
-            <div
-              className={styles.pubCard}
-              onClick={() => {
-                Route.push("/pub-form");
-              }}
-            >
-              PUBLISHER
+            <div className={styles.right}>
+              <div
+                className={styles.pubCard}
+                onClick={() => {
+                  Route.push("/pub-form");
+                }}
+              >
+                PUBLISHER
+              </div>
             </div>
           </div>
         </div>

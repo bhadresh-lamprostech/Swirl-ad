@@ -1,7 +1,7 @@
 import styles from "@/styles/Advertiser.module.scss";
 import AdvLayout from "../../Components/adv-layout";
 // import advertiserData from "@/dummy/advertiserData.json";
-import Popup from "reactjs-popup";
+// import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import { ethers } from "ethers";
@@ -23,15 +23,30 @@ export default function Advertiser() {
   });
 
   const [matic, setMatic] = useState();
-  const [selectedCampaign, setSelectedCampaign] = useState("Campaign A");
+  const [selectedCampaign, setSelectedCampaign] = useState("Meta Tech");
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const campaignsData = [
-    { name: "Campaign A", Impressions: 12000, Clicks: 800, Conversions: 120 },
-    { name: "Campaign B", Impressions: 8000, Clicks: 500, Conversions: 80 },
-    { name: "Campaign C", Impressions: 6000, Clicks: 400, Conversions: 60 },
-    { name: "Campaign D", Impressions: 4000, Clicks: 200, Conversions: 40 },
+    { name: "Meta Tech", Impressions: 12000, Clicks: 800, Conversions: 120 },
+    {
+      name: "Illuminate Pvt Ltd",
+      Impressions: 8000,
+      Clicks: 500,
+      Conversions: 80,
+    },
+    {
+      name: "Titan Tech Labs",
+      Impressions: 6000,
+      Clicks: 400,
+      Conversions: 60,
+    },
+    {
+      name: "Nephilim Pvt Ltd",
+      Impressions: 4000,
+      Clicks: 200,
+      Conversions: 40,
+    },
   ];
 
   const data = campaignsData.map((campaign) => {
