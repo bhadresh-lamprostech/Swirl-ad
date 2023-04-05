@@ -5,7 +5,7 @@ import { useAccount } from "wagmi";
 // import {sample} from "swirl-sdk-sample";
 import "@rainbow-me/rainbowkit/styles.css";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import ConnectButtonCustom from "../Components/ConnectButtonCustom";
+import ConnectButtonCustom from "../components/ConnectButtonCustom";
 import { polygonMumbai, goerli, optimismGoerli } from "wagmi/chains";
 import { Chat } from "@pushprotocol/uiweb";
 import { ITheme } from "@pushprotocol/uiweb";
