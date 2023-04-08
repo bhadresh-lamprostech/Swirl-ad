@@ -1,12 +1,18 @@
-import React from 'react'
-import AdvLayout from '../../Components/adv-layout'
+import React from "react";
+import AdvLayout from "../../Components/adv-layout";
+
+import "../../styles/published.module.scss";
 
 function PublishedCampaign() {
   return (
     <AdvLayout>
-      <div>PublishedCampaign</div>
+
+      <div>
+        
+      </div>
+  
     </AdvLayout>
-  )
+  );
 }
 
-export default PublishedCampaign
+export default PublishedCampaign;
