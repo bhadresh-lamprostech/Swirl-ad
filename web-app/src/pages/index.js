@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useAccount } from "wagmi";
 // import {sample} from "swirl-sdk-sample";
 import "@rainbow-me/rainbowkit/styles.css";
-
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import ConnectButtonCustom from "../Components/ConnectButtonCustom";
 import { polygonMumbai, goerli, optimismGoerli } from "wagmi/chains";
 
