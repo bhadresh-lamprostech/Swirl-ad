@@ -1,4 +1,5 @@
-import Navbar from "./navbar"
+import Navbar from "@/pages/publisher/navbar";
+
 export default function PubLayout({ children }) {
     return (
         <>

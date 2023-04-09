@@ -24,21 +24,18 @@ export default function Home() {
         <div className={styles.logo}>
           <Image
             className={styles.main}
-            width={150}
-            height={130}
+            width={130}
+            height={90}
             alt={"icon"}
             src="/swirl-logo1.png"
             priority
           />
         </div>
         <div className={styles.btn}>
-          {/* <button className={styles.cntBtn}>
-              CONNECT WALLET
-            </button> */}
           <ConnectButtonCustom />
         </div>
       </nav>
-      <section className={styles.hero}>
+      {/* <section className={styles.hero}>
         <div className={styles.heading}>
           <span>S</span>
           <span>W</span>
@@ -50,10 +47,9 @@ export default function Home() {
           The future of de-centralised advertisement
         </div>
         <div className={styles.btnHolder}>
-          {/* <button className={styles.cntBtn}>CONNECT WALLET</button> */}
           <ConnectButtonCustom />
         </div>
-      </section>
+      </section> */}
       <section className={styles.advSection}>
         <div className={styles.advMain}>
           <div className={styles.advLeft}>
@@ -90,7 +86,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className={styles.pubSection}>
+      {/* <section className={styles.pubSection}>
         <div className={styles.pubMain}>
           <div className={styles.pubRight}>
             <div className={styles.title}>
@@ -125,7 +121,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <footer className={styles.footer}>
         <div className={styles.copyRight}>
           &#169; 2023 swirl.com All Rights Reserved.

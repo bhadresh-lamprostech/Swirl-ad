@@ -9,7 +9,6 @@ import { ethers } from "ethers";
 import { Web3Storage } from "web3.storage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import * as PushAPI from "@pushprotocol/restapi";
 
 const Swirl_address = "0x63A600b201C8ed75aF0D80Dec532DF3b94978EA6";
 

@@ -42,16 +42,16 @@
   opacity: 0.5;
 }
 
-.gradient2 {
+/* .gradient2 {
   background-image: url("/static/gradient2.svg");
   position: fixed;
   bottom: 0;
-  /* z-index: 1111 !important; */
+  z-index: 1111 !important;
   right: 0;
   width: 400px;
   height: 400px;
   object-fit: cover;
-}
+} */
 
 .logo {
   flex-grow: 1;
@@ -144,10 +144,10 @@
 }
 
 .advSection {
-  height: 100vh;
+  min-height: 120vh;
   /* background-image: url("../../public/static/Main-bg.png"); */
   object-fit: cover;
-  backdrop-filter: blur(20px);
+  /* backdrop-filter: blur(20px); */
   overflow: hidden;
 }
 
@@ -157,7 +157,7 @@
   align-items: center;
   align-content: center;
   overflow: hidden;
-  margin: 0 auto;
+  margin: -80px auto 0 auto;
   flex-direction: row;
 }
 

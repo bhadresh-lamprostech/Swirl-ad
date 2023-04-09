@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import PubLayout from "./pub-layout";
+import PubLayout from "../../components/PubLayout";
 import styles from "@/styles/Publisher.module.scss";
 import { motion } from "framer-motion";
 import { BarChart, Bar, XAxis, YAxis, Legend, Tooltip } from "recharts";

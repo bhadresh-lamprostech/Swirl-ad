@@ -1,5 +1,5 @@
 import styles from "@/styles/Advertiser.module.scss";
-import AdvLayout from "../../Components/adv-layout";
+import AdvLayout from "@/components/AdvLayout";
 // import advertiserData from "@/dummy/advertiserData.json";
 // import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";

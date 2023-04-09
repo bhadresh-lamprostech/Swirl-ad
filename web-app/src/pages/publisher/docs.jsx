@@ -1,5 +1,5 @@
 import React from 'react'
-import PubLayout from './pub-layout'
+import PubLayout from '../../components/PubLayout'
 function Docs() {
   return (
     <PubLayout>
