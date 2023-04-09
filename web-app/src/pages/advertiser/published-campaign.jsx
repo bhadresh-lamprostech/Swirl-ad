@@ -1,5 +1,5 @@
 import React from 'react'
-import AdvLayout from '@/components/adv-layout';
+import AdvLayout from '@/components/AdvLayout';
 
 function PublishedCampaign() {
   return (
