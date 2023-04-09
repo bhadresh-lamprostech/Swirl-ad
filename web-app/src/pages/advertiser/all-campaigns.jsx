@@ -33,7 +33,7 @@ function AllCampaigns() {
                 ...campaign,
                 balance: ethers.utils.formatEther(campaign.balance || 0),
                 budget: ethers.utils.formatEther(campaign.budget || 0),
-                // payclick: ethers.utils.formatEther(campaign.payclick || 0),
+                payclick: ethers.utils.formatEther(campaign.payclick || 0),
               };
             });
 
