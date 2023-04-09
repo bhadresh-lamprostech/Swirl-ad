@@ -1,39 +1,46 @@
 {
-  "name": "hainabolo",
-  "version": "1.0.4",
-  "description": "A package that displays an advertisement fetched from an API",
-  "main": "dist/hainabolo.js",
-  "module": "src/index.js",
-  "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/your-username/hainabolo.git"
-  },
-  "keywords": [
-    "advertisement",
-    "api",
-    "vanilla-js",
-    "npm-package"
-  ],
-  "author": "Your Name",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/your-username/hainabolo/issues"
-  },
-  "homepage": "https://github.com/your-username/hainabolo#readme",
+  "name": "swirl-sdk",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "babel-loader": "^8.2.3",
-    "babel-preset-env": "^1.7.0",
-    "webpack": "^5.62.2",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.6.0"
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "storybook dev -p 6006",
+    "build": "storybook build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "@babel/core": "^7.16.12",
-    "@babel/preset-env": "^7.16.11",
-    "html-webpack-plugin": "^5.5.0"
+    "@storybook/addon-essentials": "^7.0.2",
+    "@storybook/addon-interactions": "^7.0.2",
+    "@storybook/addon-links": "^7.0.2",
+    "@storybook/blocks": "^7.0.2",
+    "@storybook/react": "^7.0.2",
+    "@storybook/react-webpack5": "^7.0.2",
+    "@storybook/testing-library": "^0.0.14-next.2",
+    "storybook": "^7.0.2"
   }
 }
