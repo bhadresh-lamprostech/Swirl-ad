@@ -139,61 +139,9 @@ function getPublisher(address _wallet) public view returns (uint256, address, st
 }
 
 
-function getAllAdvertisers() public view returns (uint256[] memory ids,  address[] memory addresses, string[] memory orgUsernames, string[] memory orgnames, string[] memory orgLogos, string[] memory orgdiscriptions, string[] memory orgOrigins, string[] memory empstrengths, string[] memory orgFounders, string[] memory orgCatagories) {
-    ids = new uint256[](advertiserCounter);
-    addresses = new address[](advertiserCounter);
-    orgUsernames = new string[](advertiserCounter);
-    orgnames = new string[](advertiserCounter);
-    orgLogos = new string[](advertiserCounter);
-    orgdiscriptions = new string[](advertiserCounter);
-    orgOrigins = new string[](advertiserCounter);
-    empstrengths = new string[](advertiserCounter);
-    orgFounders = new string[](advertiserCounter);
-    orgCatagories = new string[](advertiserCounter);
-    for (uint256 i = 1; i <= advertiserCounter; i++) {
-        ids[i - 1] = advertisers[i].id;
-        addresses[i - 1] = advertisers[i].wallet;
-        orgUsernames[i - 1] = advertisers[i].orgUsername;
-        orgnames[i - 1] = advertisers[i].orgname;
-        orgLogos[i - 1] = advertisers[i].orgLogo;
-        orgdiscriptions[i - 1] = advertisers[i].orgdiscription;
-        orgOrigins[i - 1] = advertisers[i].orgOrigin;
-        empstrengths[i - 1] = advertisers[i].empstrength;
-        orgFounders[i - 1] = advertisers[i].orgFounder;
-        orgCatagories[i - 1] = advertisers[i].orgCatagory;
-    }
-    return (ids, addresses, orgUsernames, orgnames, orgLogos, orgdiscriptions, orgOrigins, empstrengths, orgFounders, orgCatagories);
-}
 
-  
 
-function getAllPublishers() public view returns (uint256[] memory ids,  address[] memory addresses, string[] memory orgUsernames, string[] memory orgnames, string[] memory orgLogos, string[] memory orgdiscriptions, string[] memory orgOrigins, string[] memory empstrengths, string[] memory orgFounders, string[] memory orgCatagories) {
-     ids = new uint256[](publisherCounter);
-     addresses = new address[](publisherCounter);
-      orgUsernames = new string[](publisherCounter);
-      orgnames = new string[](publisherCounter);
- orgLogos = new string[](publisherCounter);
-      orgdiscriptions = new string[](publisherCounter);
-      orgOrigins = new string[](publisherCounter);
-      empstrengths = new string[](publisherCounter);
-      orgFounders = new string[](publisherCounter);
-     orgCatagories = new string[](publisherCounter);
-   
-    for (uint256 i = 1; i <= publisherCounter; i++) {
-        
-        ids[i - 1] = publishers[i].id;
-        addresses[i - 1] = publishers[i].wallet;
-        orgUsernames[i - 1] = publishers[i].orgUsername;
-        orgnames[i - 1] = publishers[i].orgname;
-        orgLogos[i - 1] = publishers[i].orgLogo;
-        orgdiscriptions[i - 1] = publishers[i].orgdiscription;
-        orgOrigins[i - 1] = publishers[i].orgOrigin;
-        empstrengths[i - 1] = publishers[i].empstrength;
-        orgFounders[i - 1] = publishers[i].orgFounder;
-        orgCatagories[i - 1] = publishers[i].orgCatagory;
-    }
-    return (ids, addresses,orgUsernames,orgnames,orgLogos,orgdiscriptions,orgOrigins,empstrengths,orgFounders,orgCatagories);
-}
+
 function createCampaign(address _advertiserAddress, uint256 _balance, string memory _campaignName, string memory _budget, string memory _payclick, string memory _stringCID) public {
     require(advertiserExists(_advertiserAddress) == true, "Advertiser does not exist");
     uint256 advertiserId;
@@ -264,25 +212,49 @@ function getCampaign(address _advertiserAddress) public view returns (uint256[] 
     return (ids, balances, campaignNames, budgets, payclicks, stringCIDs);
 }
 
-
-function getAllCampaigns() public view returns (uint256[] memory ids,  address[] memory advertiserIds, uint256[] memory balances, string[] memory campaignNames, string[] memory budgets, string[] memory payclicks, string[] memory stringCIDs) {
-    ids = new uint256[](campaignCounter);
-    advertiserIds = new address[](campaignCounter);
-    balances = new uint256[](campaignCounter);
-    campaignNames = new string[](campaignCounter);
-    budgets = new string[](campaignCounter);
-    payclicks = new string[](campaignCounter);
-    stringCIDs = new string[](campaignCounter);
-    for (uint256 i = 1; i <= campaignCounter; i++) {
-        ids[i - 1] = campaigns[i].id;
-        advertiserIds[i - 1] = advertisers[campaigns[i].advertiserId].wallet;
-        balances[i - 1] = campaigns[i].balance;
-        campaignNames[i - 1] = campaigns[i].campaignName;
-        budgets[i - 1] = campaigns[i].budget;
-        payclicks[i - 1] = campaigns[i].payclick;
-        stringCIDs[i - 1] = campaigns[i].stringCID;
+function getAllAdvertisers() public view returns (Advertiser[] memory){
+    Advertiser[] memory advertisersArray = new Advertiser[](advertiserCounter);
+    uint256 i=0;
+    for (uint256 j = 1; j <= advertiserCounter; j++) {
+        advertisersArray[i] = advertisers[j];
+        i++;
     }
-    return (ids, advertiserIds, balances, campaignNames, budgets, payclicks, stringCIDs);
+    return advertisersArray;
 }
+
+function getAllPublishers() public view returns (Publisher[] memory){
+    Publisher[] memory publishersArray = new Publisher[](publisherCounter);
+    uint256 i=0;
+    for (uint256 j = 1; j <= publisherCounter; j++) {
+        publishersArray[i] = publishers[j];
+        i++;
+    }
+    return publishersArray;
+}
+
+function getAllCampaigns() public view returns (Campaign[] memory){
+    Campaign[] memory campaignsArray = new Campaign[](campaignCounter);
+    uint256 i=0;
+    for (uint256 j = 1; j <= campaignCounter; j++) {
+        campaignsArray[i] = campaigns[j];
+        i++;
+    }
+    return campaignsArray;
+}
+
+function getOneCampaigns(address _wallet) public view returns (Campaign[] memory){
+    Campaign[] memory campaignsArray = new Campaign[](campaignCounter);
+    uint256 i=0;
+    for (uint256 j = 1; j <= campaignCounter; j++) {
+        if (advertisers[campaigns[j].advertiserId].wallet == _wallet)
+        campaignsArray[i] = campaigns[j];
+        i++;
+    }
+    return campaignsArray;
+}
+
+
+
+
 
 }

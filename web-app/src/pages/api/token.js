@@ -1,29 +1,65 @@
-import crypto from "crypto";
+const { connectToDatabase } = require("./mongodb");
+const { MongoClient } = require("mongodb");
 
-const tokensByAddress = {};
+export default async function handler(req, res) {
+  if (req.method === "POST") {
+    const { db } = await connectToDatabase();
+    const collection = db.collection("tokens");
 
-export default function handler(req, res) {
-  // Get the wallet address from the request parameters
-  const { address } = req.query;
+    const walletAddress = req.body.walletAddress;
+    const category = req.body.category;
 
-  // Check if the address parameter is missing or invalid
-  if (!address || typeof address !== "string") {
-    return res.status(400).json({ error: "Invalid wallet address" });
+    if (!walletAddress) {
+      res.status(400).json({ error: "Missing wallet address" });
+      return;
+    }
+
+    if (!category) {
+      res.status(400).json({ error: "Missing category" });
+      return;
+    }
+
+    const existingToken = await collection.findOne({ walletAddress });
+
+    if (existingToken) {
+      res.status(409).json({
+        error: "Token already exists for this wallet address",
+        token: existingToken.token,
+      });
+      return;
+    }
+
+    const token = generateToken();
+
+    try {
+      await collection.insertOne({ walletAddress, token, category });
+      res.status(200).json({ token });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Error inserting token into database" });
+    }
+  } else if (req.method === "GET") {
+    const { db } = await connectToDatabase();
+    const collection = db.collection("tokens");
+
+    const { walletAddress, token } = req.query;
+
+    const existingToken = await collection.findOne(
+      { walletAddress, token },
+      { projection: { _id: 0 } }
+    );
+
+    if (existingToken) {
+      res.status(200).json({ verified: true });
+    } else {
+      res.status(401).json({ verified: false });
+    }
+  } else {
+    res.status(405).json({ error: "Method not allowed" });
   }
+}
 
-  // Check if a token has already been generated for this address
-  if (tokensByAddress[address]) {
-    return res
-      .status(400)
-      .json({ error: "Token already generated for this address" });
-  }
-
-  // Generate a random token using the crypto module
-  const token = crypto.randomBytes(32).toString("hex");
-
-  // Store the token for this address
-  tokensByAddress[address] = token;
-
-  // Return the token in a JSON response
-  res.status(200).json({ token });
+function generateToken() {
+  const crypto = require("crypto");
+  return crypto.randomBytes(32).toString("hex");
 }

@@ -14,15 +14,16 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
-const Swirl_address = "0x39a528d0B35325fBdA269F02AF56Ddfa39130b60";
+const Swirl_address = "0x63A600b201C8ed75aF0D80Dec532DF3b94978EA6";
 
 export default function Advertiser() {
   const { address } = useAccount();
   const [depositeFund, setDepositeFund] = useState({
     fund: null,
   });
-
+  const [sum, setSum] = useState();
   const [matic, setMatic] = useState();
+  const [campaignCounts, setCampainCounts] = useState();
   const [selectedCampaign, setSelectedCampaign] = useState("Meta Tech");
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -95,6 +96,7 @@ export default function Advertiser() {
   // console.log(address);
   useEffect(() => {
     GetAdvBal();
+    getCampaign();
   });
   useEffect(() => {
     setMounted(true);
@@ -109,7 +111,8 @@ export default function Advertiser() {
         value: ethers.utils.parseEther(depositeFund.fund.toString()),
       });
       await tx.wait();
-      txSuccess();
+      await txSuccess();
+      setIsOpen(!isOpen);
       GetAdvBal();
 
       console.log(tx);
@@ -132,6 +135,22 @@ export default function Advertiser() {
     setMatic(ethers.utils.formatUnits(getAdv));
   };
 
+  const getCampaign = async () => {
+    const contract = await getContract();
+    const sigleCampaign = await contract.getOneCampaigns(address);
+    setCampainCounts(sigleCampaign.length);
+    // console.log(parseInt(sigleCampaign));
+    console.log(sigleCampaign);
+    const index3Array = sigleCampaign.map((arr) => arr[2]);
+    console.log(parseInt(index3Array[0]["_hex"]));
+
+    let sum = 0;
+    for (let i = 0; i < index3Array.length; i++) {
+      console.log(parseInt(index3Array[i]["_hex"]));
+      sum += parseInt(index3Array[i]["_hex"]);
+    }
+   setSum(ethers.utils.formatUnits(sum));
+  };
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
@@ -194,12 +213,12 @@ export default function Advertiser() {
               </div>
             </div>
             <div className={styles.card}>
-              <div className={styles.title}>Total Ads. Published</div>
-              <div className={styles.value}>400</div>
+              <div className={styles.title}>Total Campaign created</div>
+              <div className={styles.value}>{campaignCounts}</div>
             </div>
             <div className={styles.card}>
               <div className={styles.title}>Total Spent</div>
-              <div className={styles.value}>80 Matic</div>
+              <div className={styles.value}>{sum} Matic</div>
             </div>
           </div>
         </div>

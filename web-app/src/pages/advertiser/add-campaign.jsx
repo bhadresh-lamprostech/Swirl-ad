@@ -9,7 +9,7 @@ import { ethPersonalSign } from "@polybase/eth";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import { Web3Storage } from "web3.storage";
 
-const Swirl_address = "0x39a528d0B35325fBdA269F02AF56Ddfa39130b60";
+const Swirl_address = "0x63A600b201C8ed75aF0D80Dec532DF3b94978EA6";
 
 function AddCampaign() {
   const [campaignData, setCampaginData] = useState({
@@ -18,25 +18,7 @@ function AddCampaign() {
     campaignPpckick: null,
     contentCid: null,
   });
-  const db = new Polybase({
-    defaultNamespace:
-      "pk/0x3dd0a82b180d872bf79edd4659c433f1a0165028da146e710a74d542f8217eaf31e842c710e1607da901443668a3821a84aaefe62200f250b4bed12b16e871ca/Advertise",
-  });
-  const collectionReference = db.collection("Advertise");
-  const updateData = async () => {
-    const uniqueId = Math.random().toString(36).substring(2);
-    const recordData = await collectionReference.create([
-      uniqueId,
-      address,
-      cid,
-    ]);
-    console.log(recordData);
-  };
 
-  const getData = async () => {
-    const { data } = await collectionReference.record("tt14gns8zl").get();
-    console.log(data);
-  };
   const { address } = useAccount();
   const client = new Web3Storage({
     token:
@@ -115,7 +97,6 @@ function AddCampaign() {
         cid
       );
       await tx.wait();
-      updateData();
 
       console.log(tx);
     } catch (error) {

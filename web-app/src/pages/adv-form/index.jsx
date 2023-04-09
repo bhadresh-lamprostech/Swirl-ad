@@ -11,7 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as PushAPI from "@pushprotocol/restapi";
 
-const Swirl_address = "0x39a528d0B35325fBdA269F02AF56Ddfa39130b60";
+const Swirl_address = "0x63A600b201C8ed75aF0D80Dec532DF3b94978EA6";
 
 function AdvForm() {
   const toastInfo = () =>
@@ -19,32 +19,8 @@ function AdvForm() {
   const txError = () =>
     toast.error("oh no.. your transection was unsuccessful");
 
-  const optInSuccess = () => {
-    toast.success("PUSH Notification OptIN Success");
-  };
-
   const route = useRouter();
 
-  // const ethers = require("ethers");
-  const PK = "0f2db27202baaa96a1e6f683cef371032e6c0f7bc44c7e1e125f086a4359a7a2";
-  const Pkey = `0x${PK}`;
-  const signerpk = new ethers.Wallet(Pkey);
-
-  const optIn = async () => {
-    await PushAPI.channels.subscribe({
-      signer: signerpk,
-      channelAddress: "eip155:5:0x3F732382BCfE36B9e713DE33b8eD673BaCA49DFB", // channel address in CAIP
-      userAddress: "eip155:5:" + address, // user address in CAIP
-      onSuccess: () => {
-        optInSuccess();
-        console.log("opt in success");
-      },
-      onError: () => {
-        console.error("opt in error");
-      },
-      env: "staging",
-    });
-  };
   const [formData, setFormData] = useState({
     orgUsername: null,
     orgName: null,
@@ -86,6 +62,10 @@ function AdvForm() {
     }
   }, [formData.orgLogo]);
 
+  useEffect(() => {
+    console.log(cid);
+  }, [cid]);
+
   const getContract = async () => {
     try {
       const { ethereum } = window;
@@ -117,7 +97,7 @@ function AdvForm() {
 
   const submitData = async () => {
     try {
-      console.log(address);
+      console.log(cid);
       const contract = await getContract();
       const tx = await contract.createAdvertiser(
         address,
@@ -133,8 +113,6 @@ function AdvForm() {
       );
       await tx.wait();
       toastInfo();
-      optIn();
-      await sendNotification();
 
       console.log(tx);
 
@@ -155,33 +133,13 @@ function AdvForm() {
       const res = await client.get(rootCid); // Web3Response
       const files = await res.files(formData.orgLogo); // Web3File[]
       for (const file of files) {
+        console.log(file.cid);
         setCid(file.cid);
       }
     } catch (e) {
       console.log(e);
     }
   }
-
-  const sendNotification = async () => {
-    const apiResponse = await PushAPI.payloads.sendNotification({
-      signer: _signer,
-      type: 3, // target
-      identityType: 2, // direct payload
-      notification: {
-        title: `[SDK-TEST] notification TITLE:`,
-        body: `[sdk-test] notification BODY`,
-      },
-      payload: {
-        title: `Swirl-Welcome advertiser`,
-        body: `Welcome to the Swirl`,
-        cta: "",
-        img: "",
-      },
-      recipients: "eip155:5:" + address, // recipient address
-      channel: "eip155:5:0x3F732382BCfE36B9e713DE33b8eD673BaCA49DFB", // your channel address
-      env: "staging",
-    });
-  };
 
   // const createPub = async () => {
   //   try {

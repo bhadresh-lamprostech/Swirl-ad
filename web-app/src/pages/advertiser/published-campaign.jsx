@@ -4,9 +4,13 @@ import AdvLayout from '../../components/adv-layout'
 function PublishedCampaign() {
   return (
     <AdvLayout>
-      <div>PublishedCampaign</div>
+
+      <div>
+        
+      </div>
+  
     </AdvLayout>
-  )
+  );
 }
 
-export default PublishedCampaign
+export default PublishedCampaign;
