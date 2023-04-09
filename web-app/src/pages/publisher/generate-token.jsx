@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "@/styles/PublishGenerateTokens.module.scss";
-import PubLayout from "./pub-layout";
+import PubLayout from "../../Components/pub-layout";
 import { Polybase } from "@polybase/client";
 import { axios } from "axios";
 import { useAccount } from "wagmi";
