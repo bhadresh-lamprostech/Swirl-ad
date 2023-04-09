@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
     try {
       const result = await collection.updateOne(
-        { _id: campaignId },
+        { campaignId: campaignId },
         { $set: { clicks, impressions, reward } }
       );
         // console.log(campaignId)

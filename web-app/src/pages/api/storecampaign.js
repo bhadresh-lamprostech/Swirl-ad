@@ -1,4 +1,5 @@
 const { connectToDatabase } = require("./mongodb");
+const { v4: uuidv4 } = require("uuid");
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -12,8 +13,11 @@ export default async function handler(req, res) {
     const payclick = req.body.payclick;
     const stringCID = req.body.stringCID;
 
+    const campaignId = uuidv4(); // Generate a UUID for the campaign
+
     try {
       await collection.insertOne({
+        campaignId, // Add campaignId to the document
         advertiserId,
         balance,
         campaignName,
