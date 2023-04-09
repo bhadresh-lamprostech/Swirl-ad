@@ -89,13 +89,11 @@ function AddCampaign() {
       const tx = await contract.createCampaign(
         address,
         ethers.utils.parseEther(campaignData.campaignBudget.toString()),
-
         campaignData.campaignName,
         0,
-
         campaignData.campaignPpckick,
         cid
-      );
+      );                                           
       await tx.wait();
 
       console.log(tx);
