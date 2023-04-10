@@ -35,7 +35,7 @@ export default function Home() {
           <ConnectButtonCustom />
         </div>
       </nav>
-      {/* <section className={styles.hero}>
+      <section className={styles.hero}>
         <div className={styles.heading}>
           <span>S</span>
           <span>W</span>
@@ -49,7 +49,7 @@ export default function Home() {
         <div className={styles.btnHolder}>
           <ConnectButtonCustom />
         </div>
-      </section> */}
+      </section>
       <section className={styles.advSection}>
         <div className={styles.advMain}>
           <div className={styles.advLeft}>
@@ -86,7 +86,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* <section className={styles.pubSection}>
+      <section className={styles.pubSection}>
         <div className={styles.pubMain}>
           <div className={styles.pubRight}>
             <div className={styles.title}>
@@ -121,7 +121,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
       <footer className={styles.footer}>
         <div className={styles.copyRight}>
           &#169; 2023 swirl.com All Rights Reserved.

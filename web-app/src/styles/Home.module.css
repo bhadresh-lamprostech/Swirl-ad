@@ -147,7 +147,7 @@
   min-height: 120vh;
   /* background-image: url("../../public/static/Main-bg.png"); */
   object-fit: cover;
-  /* backdrop-filter: blur(20px); */
+  backdrop-filter: blur(20px);
   overflow: hidden;
 }
 
@@ -157,7 +157,7 @@
   align-items: center;
   align-content: center;
   overflow: hidden;
-  margin: -80px auto 0 auto;
+  margin: 0 auto;
   flex-direction: row;
 }
 
