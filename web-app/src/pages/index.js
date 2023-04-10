@@ -32,22 +32,13 @@ export default function Home() {
           />
         </div>
         <div className={styles.btn}>
+          <button className={styles.cntBtn}><a href="https://swirl.gitbook.io/product-docs/" target={"__blank"}>Docs</a></button>
           <ConnectButtonCustom />
         </div>
       </nav>
       <section className={styles.hero}>
-        <div className={styles.heading}>
-          <span>S</span>
-          <span>W</span>
-          <span>I</span>
-          <span>R</span>
-          <span>L</span>
-        </div>
         <div className={styles.tagline}>
-          The future of de-centralised advertisement
-        </div>
-        <div className={styles.btnHolder}>
-          <ConnectButtonCustom />
+          Experience privacy-first advertising, where relevance meets respect
         </div>
       </section>
       <section className={styles.advSection}>
