@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
-const Swirl_address = "0x63A600b201C8ed75aF0D80Dec532DF3b94978EA6";
+const Swirl_address = "0x32158bdCEC4F45687365a6cC9F291635Daf8b32B";
 
 export default function Advertiser() {
   const { address } = useAccount();
@@ -72,7 +72,7 @@ export default function Advertiser() {
         }
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
-        if (chainId === 80001) {
+        if (chainId === 1029) {
           const contract = new ethers.Contract(
             Swirl_address,
             Swirl.abi,
@@ -80,7 +80,7 @@ export default function Advertiser() {
           );
           return contract;
         } else {
-          alert("Please connect to the polygon Mumbai testnet Network!");
+          alert("Please connect to the BTTC Testnet testnet Network!");
         }
       }
       console.log(signer);
@@ -149,7 +149,7 @@ export default function Advertiser() {
       console.log(parseInt(index3Array[i]["_hex"]));
       sum += parseInt(index3Array[i]["_hex"]);
     }
-   setSum(ethers.utils.formatUnits(sum));
+    setSum(ethers.utils.formatUnits(sum));
   };
   const togglePopup = () => {
     setIsOpen(!isOpen);

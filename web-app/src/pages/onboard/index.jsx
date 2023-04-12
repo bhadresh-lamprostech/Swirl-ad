@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { ethers } from "ethers";
 import { Web3Storage } from "web3.storage";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
-const Swirl_address = "0x63A600b201C8ed75aF0D80Dec532DF3b94978EA6";
+const Swirl_address = "0x32158bdCEC4F45687365a6cC9F291635Daf8b32B";
 
 export default function Onboard() {
   const { isConnected, address } = useAccount();
@@ -22,7 +22,7 @@ export default function Onboard() {
         }
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
-        if (chainId === 80001) {
+        if (chainId === 1029) {
           const contract = new ethers.Contract(
             Swirl_address,
             Swirl.abi,
@@ -30,7 +30,7 @@ export default function Onboard() {
           );
           return contract;
         } else {
-          alert("Please connect to the polygon Mumbai testnet Network!");
+          alert("Please connect to the BTTC Testnet testnet Network!");
         }
       }
       console.log(signer);

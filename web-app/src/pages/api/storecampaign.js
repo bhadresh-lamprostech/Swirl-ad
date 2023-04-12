@@ -10,6 +10,7 @@ export default async function handler(req, res) {
     const balance = req.body.balance;
     const campaignName = req.body.campaignName;
     const budget = req.body.budget;
+    const category = req.body.category;
     const payclick = req.body.payclick;
     const stringCID = req.body.stringCID;
 
@@ -22,6 +23,7 @@ export default async function handler(req, res) {
         balance,
         campaignName,
         budget,
+        category,
         payclick,
         stringCID,
       });

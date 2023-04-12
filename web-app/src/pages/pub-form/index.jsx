@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 
-const Swirl_address = "0x63A600b201C8ed75aF0D80Dec532DF3b94978EA6";
+const Swirl_address = "0x32158bdCEC4F45687365a6cC9F291635Daf8b32B";
 
 function PubForm() {
   const [formData, setFormData] = useState({
@@ -61,7 +61,7 @@ function PubForm() {
         }
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
-        if (chainId === 80001) {
+        if (chainId === 1029) {
           const contract = new ethers.Contract(
             Swirl_address,
             Swirl.abi,
@@ -69,7 +69,7 @@ function PubForm() {
           );
           return contract;
         } else {
-          alert("Please connect to the polygon Mumbai testnet Network!");
+          alert("Please connect to the BTTC Testnet testnet Network!");
         }
       }
       console.log(signer);
@@ -204,7 +204,7 @@ function PubForm() {
               }}
             />
           </div>
-          <div className={styles.otherDivs}>
+          {/* <div className={styles.otherDivs}>
             <label htmlFor="orgcategory">Firm Category</label>
             <input
               type="text"
@@ -213,6 +213,25 @@ function PubForm() {
                 setFormData({ ...formData, orgCategory: e.target.value });
               }}
             />
+          </div> */}
+
+          <div>
+            <label>Category </label>
+            <select
+              id="category"
+              name="category"
+              required
+              onChange={(e) => {
+                setFormData({ ...formData, orgCategory: e.target.value });
+              }}
+            >
+              <option value="">--Select a Category--</option>
+              <option value="commercial">Commercial</option>
+              <option value="products">Products</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="general awareness">General Awareness</option>
+              <option value="promotion">Promotion</option>
+            </select>
           </div>
           <div className={styles.otherDivs}>
             <label htmlFor="SubmitForm"></label>

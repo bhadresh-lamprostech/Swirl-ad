@@ -4,19 +4,20 @@ import styles from "@/styles/add-campaign.module.scss";
 import { useState, useEffect } from "react";
 import { useAccount, useSigner } from "wagmi";
 import { ethers } from "ethers";
-import { Polybase } from "@polybase/client";
-import { ethPersonalSign } from "@polybase/eth";
+import axios from "axios";
+
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import { Web3Storage } from "web3.storage";
 
-const Swirl_address = "0x63A600b201C8ed75aF0D80Dec532DF3b94978EA6";
+const Swirl_address = "0x32158bdCEC4F45687365a6cC9F291635Daf8b32B";
 
 function AddCampaign() {
   const [campaignData, setCampaginData] = useState({
     campaignName: null,
     campaignBudget: null,
     campaignPpckick: null,
-    contentCid: null,
+    // contentCid: null,
+    campaignCategory: null,
   });
 
   const { address } = useAccount();
@@ -50,6 +51,7 @@ function AddCampaign() {
       const files = await res.files(campaignData.contentCid); // Web3File[]
       for (const file of files) {
         setCid(file.cid);
+        console.log(file.cid);
       }
     } catch (e) {
       console.log(e);
@@ -66,7 +68,7 @@ function AddCampaign() {
         }
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
-        if (chainId === 80001) {
+        if (chainId === 1029) {
           const contract = new ethers.Contract(
             Swirl_address,
             Swirl.abi,
@@ -74,12 +76,46 @@ function AddCampaign() {
           );
           return contract;
         } else {
-          alert("Please connect to the polygon Mumbai testnet Network!");
+          alert("Please connect to the BTTC Testnet testnet Network!");
         }
       }
       console.log(signer);
     } catch (error) {
       console.log(error);
+    }
+  };
+  const uploadDb = async () => {
+    const apiUrl = "http://localhost:3000/api/storecampaign";
+
+    const data = JSON.stringify({
+      advertiserId: address,
+      // balance: 0,
+      campaignName: campaignData.campaignName,
+      budget: campaignData.campaignBudget,
+      category: campaignData.campaignCategory,
+      payclick: campaignData.campaignPpckick,
+      stringCID: cid,
+    });
+
+    console.log(data);
+
+    const config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: apiUrl,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data,
+    };
+
+    try {
+      const response = await axios.request(config);
+      console.log(JSON.stringify(response.data));
+      // handle success, if necessary
+    } catch (error) {
+      console.log(error);
+      // handle error, if necessary
     }
   };
   const uploadCampaign = async () => {
@@ -90,13 +126,13 @@ function AddCampaign() {
         address,
         ethers.utils.parseEther(campaignData.campaignBudget.toString()),
         campaignData.campaignName,
-        0,
+        campaignData.campaignCategory,
         campaignData.campaignPpckick,
         cid
-      );                                           
+      );
       await tx.wait();
-
       console.log(tx);
+      uploadDb();
     } catch (error) {
       console.log(error);
     }
@@ -147,6 +183,27 @@ function AddCampaign() {
             />
           </div>
           <div>
+            <label>Category </label>
+            <select
+              id="category"
+              name="category"
+              required
+              onChange={(e) => {
+                setCampaginData({
+                  ...campaignData,
+                  campaignCategory: e.target.value,
+                });
+              }}
+            >
+              <option value="">--Select a Category--</option>
+              <option value="commercial">Commercial</option>
+              <option value="products">Products</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="general awareness">General Awareness</option>
+              <option value="promotion">Promotion</option>
+            </select>
+          </div>
+          <div>
             <label>Pay-per-click</label>
             <input
               id="name"
@@ -187,6 +244,9 @@ function AddCampaign() {
           <button onClick={() => uploadCampaign()} className={styles.btn}>
             upload Campaign
           </button>
+          {/* <button onClick={() => uploadDb()} className={styles.btn}>
+            upload Campaign db
+          </button> */}
         </div>
       </div>
     </AdvLayout>

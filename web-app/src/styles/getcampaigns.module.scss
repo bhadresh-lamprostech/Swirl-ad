@@ -1,0 +1,57 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.gridCard {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 16px 0 rgba(31, 38, 135, 0.37);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.gridCard:hover {
+  transform: translateY(-5px);
+}
+
+.imageContainer {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cmpimg {
+  max-width: 100%;
+  height: auto;
+}
+
+.detailsContainer {
+  padding: 10px;
+}
+
+.campaignName {
+  font-size: 16px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.advertiserId,
+.balance,
+.budget,
+.payclick,
+.clicks,
+.impressions,
+.reward {
+  margin-bottom: 5px;
+  font-size: 12px;
+}

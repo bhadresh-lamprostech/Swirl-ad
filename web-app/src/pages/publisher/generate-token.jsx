@@ -1,34 +1,113 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "@/styles/PublishGenerateTokens.module.scss";
 import PubLayout from "../../Components/PubLayout";
-import { Polybase } from "@polybase/client";
-import { axios } from "axios";
+import { ethers } from "ethers";
+import SwirlABI from "../../artifacts/contracts/Swirl.sol/Swirl.json";
+import axios from "axios";
 import { useAccount } from "wagmi";
 
+const Swirl_address = "0x32158bdCEC4F45687365a6cC9F291635Daf8b32B";
+
 function GenerateToken() {
-  // const db = new Polybase({
-  //   defaultNamespace:
-  //     "pk/0x3dd0a82b180d872bf79edd4659c433f1a0165028da146e710a74d542f8217eaf31e842c710e1607da901443668a3821a84aaefe62200f250b4bed12b16e871ca/Token",
-  // });
   const { address } = useAccount();
+  const [pubCatagory, setPubCatagory] = useState();
+  const [userToken, setUserToken] = useState("");
+  const [tooltipText, setTooltipText] = useState("Copy to clipboard");
+  const textRef = useRef(null);
 
-  const axios = require("axios");
-
-  let config = {
-    method: "post",
-    maxBodyLength: Infinity,
-    url: `http://localhost:3000/api/token?address=${address}`,
-    headers: {},
+  const getContract = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+        if (chainId === 1029) {
+          const contract = new ethers.Contract(
+            Swirl_address,
+            SwirlABI.abi,
+            signer
+          );
+          return contract;
+        } else {
+          alert("Please connect to the BTTC Testnet testnet Network!");
+        }
+      }
+      console.log(signer);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  axios
-    .request(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
+  useEffect(() => {
+    getPublisherCatagory();
+  }, []);
+
+  const getPublisherCatagory = async () => {
+    const contract = await getContract();
+    const getCatagory = await contract.getPublisher(address);
+
+    setPubCatagory(getCatagory[9]);
+  };
+
+  const getToken = async () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `http://localhost:3000/api/gettoken?walletAddress=${address}`,
+      headers: {},
+    };
+
+    try {
+      const response = await axios.request(config);
+      setUserToken(response.data.token);
+    } catch (error) {
       console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getToken();
+  }, []);
+
+  const generateToken = async () => {
+    let data = JSON.stringify({
+      walletAddress: address,
+      category: pubCatagory,
     });
+
+    let config = {
+      method: "post",
+      url: "http://localhost:3000/api/token",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      maxContentLength: {
+        maxBodyLength: Infinity,
+      },
+      data: data,
+    };
+
+    try {
+      const response = await axios.request(config);
+      setUserToken(response.data.token);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const copyText = (e) => {
+    window.getSelection().selectAllChildren(textRef.current);
+    document.execCommand("copy");
+    setTooltipText("Copied! ✅");
+  };
+
+  const resetTooltip = () => {
+    setTooltipText("Copy to clipboard");
+  };
 
   return (
     <PubLayout>
@@ -36,9 +115,30 @@ function GenerateToken() {
         <div className={styles.genOuter}>
           <div className={styles.genHeader}>Generate Tokens</div>
           <div className={styles.genContent}>
-            If you are looking to monetize your content, Project Swirl offers an innovative advertisement platform that can help increase your ad revenue. With our unique token system, you can easily integrate our advertisement package into your application, and gain access to powerful targeting and optimization tools. Sign up for our services today and start monetizing your content efficiently.
+            If you are looking to monetize your content, Project Swirl offers an
+            innovative advertisement platform that can help increase your ad
+            revenue. With our unique token system, you can easily integrate our
+            advertisement package into your application, and gain access to
+            powerful targeting and optimization tools. Sign up for our services
+            today and start monetizing your content efficiently.
           </div>
-          <button className={styles.genBtn}>Generate</button>
+          {userToken ? (
+            <div>
+              <span ref={textRef}>{userToken}</span>
+              <button
+                id="copy"
+                tooltip={tooltipText}
+                onClick={copyText}
+                onMouseOver={resetTooltip}
+              >
+                Copy
+              </button>
+            </div>
+          ) : (
+            <button className={styles.genBtn} onClick={() => generateToken()}>
+              Generate
+            </button>
+          )}
         </div>
       </div>
     </PubLayout>
