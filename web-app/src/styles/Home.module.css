@@ -1,18 +1,4 @@
 /*------------------- LANDING PAGE -----------------------------*/
-@keyframes rotate {
-  from {
-    rotate: 0deg;
-  }
-
-  50% {
-    scale: 1 1.5;
-  }
-
-  to {
-    rotate: 360deg;
-  }
-}
-
 .landing {
   min-height: 100vh;
   width: 100%;
@@ -67,12 +53,22 @@
   object-fit: contain;
 }
 
-.logo .btn {
+.btn {
   display: flex;
   align-items: center;
   align-content: center;
   flex-wrap: wrap;
+  gap: 30px;
 }
+
+.btn button {
+  animation: unset !important;
+}
+
+.btn button:hover {
+  background-color: var(--purple);
+}
+
 .cntBtn {
   padding: 10px;
   font-family: var(--font2-light);
@@ -81,9 +77,6 @@
   border: 1px solid transparent;
   background-color: var(--pink);
   color: var(--text-color);
-}
-
-.cntBtn:hover {
   animation: changeColor 5s ease-in infinite;
   cursor: pointer;
 }
@@ -134,9 +127,19 @@
 }
 
 .hero .tagline {
+  position: absolute;
+  top: 300px;
+  width: 1137px;
+  height: 113px;
+  font-family: var(--font1);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 108px;
+  line-height: 100px;
+  /* or 93% */
   text-align: center;
-  font-size: 50px;
-  width: 560px;
+  text-transform: capitalize;
+  color: #ffffff;
 }
 
 .hero .btnHolder {
@@ -147,7 +150,7 @@
   min-height: 120vh;
   /* background-image: url("../../public/static/Main-bg.png"); */
   object-fit: cover;
-  /* backdrop-filter: blur(20px); */
+  backdrop-filter: blur(20px);
   overflow: hidden;
 }
 
@@ -157,7 +160,7 @@
   align-items: center;
   align-content: center;
   overflow: hidden;
-  margin: -80px auto 0 auto;
+  margin: 0 auto;
   flex-direction: row;
 }
 
@@ -209,19 +212,26 @@
 .advSection .advRight .title {
   font-family: "NATS";
   font-size: 60px;
-  width: 400px;
+  width: 620px;
   line-height: 60px;
 }
 
 .advSection .advRight .description {
-  font-family: "NATS";
-  font-size: 20px;
-  width: 400px;
+  width: 523px;
+  height: 175px;
+  font-family:var(--font2-light);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 40px;
+  /* or 169% */
+  text-transform: capitalize;
+  color: #ffffff;
   margin-top: 60px;
 }
 
 .advSection .advRight .kBtn {
-  margin-top: 20px;
+  margin-top: 81px;
 }
 
 .advSection .advRight .kBtn .knowMore {
@@ -297,21 +307,31 @@
 }
 
 .pubSection .pubRight .title {
-  font-family: "NATS";
+  font-family: var(--font1);
   font-size: 60px;
-  width: 400px;
+  width: 620px;
   line-height: 60px;
 }
 
 .pubSection .pubRight .description {
-  font-family: "NATS";
-  font-size: 20px;
-  width: 400px;
+  width: 523px;
+  height: 175px;
+
+  font-family: var(--font2-light);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 40px;
+  /* or 169% */
+
+  text-transform: capitalize;
+
+  color: #FFFFFF;
   margin-top: 60px;
 }
 
 .pubSection .pubRight .kBtn {
-  margin-top: 20px;
+  margin-top: 81px;
 }
 
 .pubSection .pubRight .kBtn .knowMore {
