@@ -1,6 +1,13 @@
-const { connectToDatabase } = require("./mongodb");
+import NextCors from "nextjs-cors";
+import { connectToDatabase } from "./mongodb";
 
 export default async function handler(req, res) {
+  await NextCors(req, res, {
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200,
+  });
+
   if (req.method === "PUT") {
     const { db } = await connectToDatabase();
     const collection = db.collection("campaigns");
@@ -15,7 +22,7 @@ export default async function handler(req, res) {
         { campaignId: campaignId },
         { $set: { clicks, impressions, reward } }
       );
-        // console.log(campaignId)
+
       if (result.modifiedCount === 1) {
         res.status(200).json({ message: "Campaign updated successfully" });
       } else {

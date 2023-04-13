@@ -1,6 +1,18 @@
 import { connectToDatabase } from "./mongodb";
+import Cors from "cors";
+
+const cors = Cors({
+  methods: ["GET", "HEAD"],
+});
 
 export default async function handler(req, res) {
+  await new Promise((resolve, reject) => {
+    cors(req, res, (err) => {
+      if (err) return reject(err);
+      resolve();
+    });
+  });
+
   if (req.method === "GET") {
     const { db } = await connectToDatabase();
     const collection = db.collection("campaigns");
@@ -27,6 +39,7 @@ export default async function handler(req, res) {
         })
         .toArray();
       console.log(campaigns);
+
       res.status(200).json({ campaigns });
     } catch (error) {
       console.error(error);

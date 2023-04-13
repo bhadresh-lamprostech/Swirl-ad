@@ -12,15 +12,16 @@
     font-size: 35px;
     font-family: var(--font1);
     text-align: center;
-    // padding-top: 200px;
-    // backdrop-filter: blur(100px);
+    font-weight: 100;
+    letter-spacing: 2px;
+    padding: 20px;
   }
 
   .onboardOuter {
     // padding-top: 200px;
-    background-color: rgba(255,255,255, 0.2);
+    background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(20px);
-    width: 60%;
+    width: 45%;
     align-items: center;
     align-content: center;
     margin: 0 auto;
@@ -32,8 +33,8 @@
     align-items: center;
     align-content: center;
     flex-wrap: wrap;
-    height: 400px;
-    width: 60%;
+    height: 250px;
+    width: 85%;
     margin: 0 auto;
     border-radius: 20px;
 

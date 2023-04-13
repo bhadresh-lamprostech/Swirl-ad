@@ -149,7 +149,8 @@ export default function Advertiser() {
       console.log(parseInt(index3Array[i]["_hex"]));
       sum += parseInt(index3Array[i]["_hex"]);
     }
-    setSum(ethers.utils.formatUnits(sum));
+    console.log(sum)
+    setSum(ethers.utils.formatEther(sum.toString()));
   };
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -164,7 +165,7 @@ export default function Advertiser() {
           <div className={styles.inner}>
             <div className={styles.card}>
               <div className={styles.title}>Total Locked</div>
-              <div className={styles.value}>{matic} Matic</div>
+              <div className={styles.value}>{matic} BTT</div>
               <div>
                 <input
                   className={styles.depoBtn}
@@ -218,7 +219,7 @@ export default function Advertiser() {
             </div>
             <div className={styles.card}>
               <div className={styles.title}>Total Spent</div>
-              <div className={styles.value}>{sum} Matic</div>
+              <div className={styles.value}>{sum} BTT</div>
             </div>
           </div>
         </div>

@@ -7,18 +7,12 @@
 
 .advNavMain {
   color: var(--text-color);
-  width: 98%;
+  width: 100%;
   font-family: var(--font2-bold);
   padding: 20px 0;
   margin: 10px auto;
-  background: linear-gradient(
-    to right,
-    var(--purple),
-    var(--pink),
-    var(--blue),
-    var(--yellow)
-  );
-  border-radius: 20px;
+  border-radius: 50px;
+  background: linear-gradient(90deg, rgb(37, 18, 63) 0%, rgb(79, 27, 98) 100%);
 
   .advNavHolder {
     @include flexing;
@@ -38,7 +32,11 @@
         gap: 10px;
 
         li {
-          background-color: var(--purple);
+          background: linear-gradient(
+            90deg,
+            rgb(234, 51, 150) 0%,
+            rgb(117, 67, 246) 100%
+          );
           padding: 10px;
           border-radius: 10px;
 
@@ -57,56 +55,59 @@ li.Active {
 
 .pubDashboardMain {
   .pubTopBox {
-    width: 98%;
-    // min-height: 200px;
-    margin: 60px auto 0 auto;
+    width: 85%;
+    margin: 100px auto 0 auto;
     border-radius: 20px;
-    border: 1px solid var(--pink);
-    // background: linear-gradient(to right, var(--pink), var(--purple), var(--yellow), var(--blue));
-    // backdrop-filter: blur(20px);
-    box-shadow: -1px -1px 10px 2px var(--pink);
-    height: auto;
+    // border: 1px solid var(--pink);
+    box-shadow: -1px -1px 10px 2px white;
+    height: 25vh;
 
     .pubHeader {
-      font-size: 25px;
+      font-size: 20px;
       font-family: var(--font1);
-      background: linear-gradient(to right, var(--yellow), var(--blue));
+      background: linear-gradient(
+        90deg,
+        rgb(37, 18, 63) 0%,
+        rgb(79, 27, 98) 100%
+      );
       margin-top: -38px;
       margin-left: 30px;
-      padding: 2.5px 5px;
+      /* padding: 2.5px 5px; */
       border-bottom: 1px solid transparent;
-      border-top: 1px solid var(--pink);
-      border-left: 1px solid var(--pink);
-      border-right: 1px solid var(--pink);
       position: absolute;
       border-radius: 5px;
-      // z-index: 25;
+      /* width: 8%; */
+      padding: 10px 20px;
+      text-align: center;
+      letter-spacing: 2px;
+      // top: 150px;
+      // left: 148px;
     }
 
     .pubInner {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 3fr));
+      grid-gap: 20px;
       gap: 20px;
       vertical-align: middle;
+      padding: 20px;
       align-items: center;
       justify-content: center;
-      height: 200px;
+      height: 266px;
 
       .pubCard {
         width: 300px;
-        height: 150px;
+        height: 178px;
         margin: 0 auto;
         background: linear-gradient(
-          to right,
-          var(--yellow),
-          var(--blue),
-          var(--purple)
+          90deg,
+          rgb(37, 18, 63) 0%,
+          rgb(79, 27, 98) 100%
         );
         border-radius: 5px;
         display: inline-flex;
         align-items: center;
         align-content: center;
-        // flex-wrap: wrap;
         flex-direction: column;
 
         .pubTitle {
@@ -123,15 +124,19 @@ li.Active {
         }
 
         .pubDepoBtn {
+          height: -moz-fit-content;
           height: fit-content;
+          width: -moz-fit-content;
           width: fit-content;
-          padding: 5px 10px 5px 10px;
+          /* padding: 15px 33px 20px 31px; */
           margin: 0 auto;
-          background-color: var(--pink);
-          color: white;
+          background-color: var(--yellow);
+          color: black;
           border-radius: 10px;
+          padding: 10px 20px;
           border: none;
           font-size: 15px;
+          letter-spacing: 1px;
           font-weight: 550;
           font-family: var(--font2-bold);
           margin-bottom: 10px;
@@ -175,12 +180,17 @@ li.Active {
   }
   .pubGraphBox {
     @include flexing;
-    width: 98%;
-    border: 1px solid var(--pink);
-    margin: 30px auto;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    width: 91%;
+    border: 1px solid white;
+    /* margin: 30px 10px auto; */
     border-radius: 20px;
     height: 500px;
-    box-shadow: -1px -1px 10px 2px var(--pink);
+    // box-shadow: -1px -1px 10px 2px white;
 
     .pubCampaignsList {
       flex: 1 1 50%;
@@ -189,6 +199,8 @@ li.Active {
       width: 100%;
       overflow: scroll;
       max-height: 400px;
+      /* margin: 20px; */
+      padding: 30px;
 
       .pubCampaignSingle {
         height: fit-content;

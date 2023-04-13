@@ -31,8 +31,12 @@ function AllCampaigns() {
             const formattedCampaignsData = campaignsData.map((campaign) => {
               return {
                 ...campaign,
-                balance: ethers.utils.formatEther(campaign.balance || 0),
-                budget: ethers.utils.formatEther(campaign.budget || 0),
+                balance: ethers.utils.formatEther(
+                  campaign.balance || 0
+                ),
+                budget: ethers.utils.formatEther(
+                  campaign.budget || 0
+                ),
                 payclick: campaign.payclick || 0,
               };
             });

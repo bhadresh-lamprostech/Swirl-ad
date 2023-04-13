@@ -33,11 +33,11 @@ function AddCampaign() {
     console.log(campaignData);
   }, [campaignData]);
 
-  useEffect(() => {
-    if (campaignData.contentCid) {
-      UploadImage();
-    }
-  }, [campaignData.contentCid]);
+  // useEffect(() => {
+  //   if (campaignData.contentCid) {
+  //     UploadImage();
+  //   }
+  // }, [campaignData.contentCid]);
 
   async function UploadImage() {
     try {
@@ -86,7 +86,7 @@ function AddCampaign() {
   };
   const uploadDb = async () => {
     const apiUrl = "http://localhost:3000/api/storecampaign";
-
+    console.log(cid)
     const data = JSON.stringify({
       advertiserId: address,
       // balance: 0,
@@ -119,6 +119,7 @@ function AddCampaign() {
     }
   };
   const uploadCampaign = async () => {
+    await UploadImage();
     try {
       console.log(address);
       const contract = await getContract();

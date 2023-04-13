@@ -16,12 +16,7 @@
   height: 300px;
   max-height: 70vh;
   margin-top: calc(110vh - 85vh - 20px);
-  background: linear-gradient(
-    to right,
-    var(--purple),
-    var(--blue),
-    var(--yellow)
-  );
+  background: linear-gradient(90deg, rgb(37, 18, 63) 0%, rgb(79, 27, 98) 100%);
   border-radius: 20px;
   padding: 20px;
   // border: 1px solid #999;
