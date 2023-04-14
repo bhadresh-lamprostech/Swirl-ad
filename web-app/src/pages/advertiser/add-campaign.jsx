@@ -85,7 +85,7 @@ function AddCampaign() {
     }
   };
   const uploadDb = async () => {
-    const apiUrl = "http://localhost:3000/api/storecampaign";
+    const apiUrl = "https://swirl-ad.vercel.app/api/storecampaign";
     console.log(cid)
     const data = JSON.stringify({
       advertiserId: address,

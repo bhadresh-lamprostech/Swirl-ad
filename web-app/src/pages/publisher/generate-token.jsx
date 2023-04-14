@@ -58,7 +58,7 @@ function GenerateToken() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `http://localhost:3000/api/gettoken?walletAddress=${address}`,
+      url: `https://swirl-ad.vercel.app/api/gettoken?walletAddress=${address}`,
       headers: {},
     };
 
@@ -82,7 +82,7 @@ function GenerateToken() {
 
     let config = {
       method: "post",
-      url: "http://localhost:3000/api/token",
+      url: "https://swirl-ad.vercel.app/api/token",
       headers: {
         "Content-Type": "application/json",
       },
