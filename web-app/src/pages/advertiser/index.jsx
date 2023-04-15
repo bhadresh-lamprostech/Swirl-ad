@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
-const Swirl_address = "0x32158bdCEC4F45687365a6cC9F291635Daf8b32B";
+const Swirl_address = "0xDA1d6646947D960e187Da191C8ADAdfA18Cb8C3f";
 
 export default function Advertiser() {
   const { address } = useAccount();
@@ -149,7 +149,7 @@ export default function Advertiser() {
       console.log(parseInt(index3Array[i]["_hex"]));
       sum += parseInt(index3Array[i]["_hex"]);
     }
-    console.log(sum)
+    console.log(sum);
     setSum(ethers.utils.formatEther(sum.toString()));
   };
   const togglePopup = () => {

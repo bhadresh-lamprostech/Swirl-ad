@@ -6,7 +6,7 @@ import SwirlABI from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import axios from "axios";
 import { useAccount } from "wagmi";
 
-const Swirl_address = "0x32158bdCEC4F45687365a6cC9F291635Daf8b32B";
+const Swirl_address = "0xDA1d6646947D960e187Da191C8ADAdfA18Cb8C3f";
 
 function GenerateToken() {
   const { address } = useAccount();
@@ -58,7 +58,7 @@ function GenerateToken() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `https://swirl-ad.vercel.app/api/gettoken?walletAddress=${address}`,
+      url: `http://localhost:3000/api/gettoken?walletAddress=${address}`,
       headers: {},
     };
 
@@ -82,7 +82,7 @@ function GenerateToken() {
 
     let config = {
       method: "post",
-      url: "https://swirl-ad.vercel.app/api/token",
+      url: "http://localhost:3000/api/token",
       headers: {
         "Content-Type": "application/json",
       },
@@ -99,10 +99,13 @@ function GenerateToken() {
       console.log(error);
     }
   };
-  const copyText = (e) => {
-    window.getSelection().selectAllChildren(textRef.current);
-    document.execCommand("copy");
-    setTooltipText("Copied! ✅");
+  const copyText = async (e) => {
+    try {
+      await navigator.clipboard.writeText(textRef.current.textContent);
+      setTooltipText("Copied! ✅");
+    } catch (error) {
+      console.error("Error copying text: ", error);
+    }
   };
 
   const resetTooltip = () => {
@@ -123,11 +126,14 @@ function GenerateToken() {
             today and start monetizing your content efficiently.
           </div>
           {userToken ? (
-            <div>
-              <span ref={textRef}>{userToken}</span>
+            <div className={styles.tokenmain}>
+              <span className={styles.spantoken} ref={textRef}>
+                {userToken}
+              </span>
               <button
                 id="copy"
-                tooltip={tooltipText}
+                className={styles.tokenbtn}
+                title={tooltipText}
                 onClick={copyText}
                 onMouseOver={resetTooltip}
               >

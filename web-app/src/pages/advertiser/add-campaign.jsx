@@ -9,7 +9,7 @@ import axios from "axios";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import { Web3Storage } from "web3.storage";
 
-const Swirl_address = "0x32158bdCEC4F45687365a6cC9F291635Daf8b32B";
+const Swirl_address = "0xDA1d6646947D960e187Da191C8ADAdfA18Cb8C3f";
 
 function AddCampaign() {
   const [campaignData, setCampaginData] = useState({
@@ -18,6 +18,7 @@ function AddCampaign() {
     campaignPpckick: null,
     // contentCid: null,
     campaignCategory: null,
+    campaignUrl: null,
   });
 
   const { address } = useAccount();
@@ -27,6 +28,7 @@ function AddCampaign() {
   });
 
   const [cid, setCid] = useState("");
+  const [camId, setCamId] = useState();
 
   const exceptThisSymbols = ["e", "E", "+", "-"];
   useEffect(() => {
@@ -85,14 +87,16 @@ function AddCampaign() {
     }
   };
   const uploadDb = async () => {
-    const apiUrl = "https://swirl-ad.vercel.app/api/storecampaign";
-    console.log(cid)
+    const apiUrl = "http://localhost:3000/api/storecampaign";
+    console.log(cid);
     const data = JSON.stringify({
+      campainId: camId,
       advertiserId: address,
       // balance: 0,
       campaignName: campaignData.campaignName,
       budget: campaignData.campaignBudget,
       category: campaignData.campaignCategory,
+      campaignUrl: campaignData.campaignUrl,
       payclick: campaignData.campaignPpckick,
       stringCID: cid,
     });
@@ -131,8 +135,33 @@ function AddCampaign() {
         campaignData.campaignPpckick,
         cid
       );
+
       await tx.wait();
-      console.log(tx);
+
+      const id = await contract.getCurrentId();
+      console.log(parseInt(id));
+
+      setCamId(parseInt(id));
+
+      // const { campaignCounter } = await contract.createCampaign(
+      //   address,
+      //   ethers.utils.parseEther(campaignData.campaignBudget.toString()),
+      //   campaignData.campaignName,
+      //   campaignData.campaignCategory,
+      //   campaignData.campaignPpckick,
+      //   cid
+      // );
+      // const receipt = await tx.wait();
+      // const returnValue = receipt.logs[0].data;
+      // console.log("Return value (hex):", returnValue);
+
+      // const decodedValue = ethers.utils.defaultAbiCoder.decode(
+      //   ["uint256"],
+      //   returnValue
+      // )[0];
+      // console.log("Return value (decimal):", decodedValue.toString());
+
+      // console.log(tx);
       uploadDb();
     } catch (error) {
       console.log(error);
@@ -183,6 +212,23 @@ function AddCampaign() {
               required
             />
           </div>
+          <div>
+            <label>Target URL </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="eg.https://your.url"
+              name="name"
+              required
+              onChange={(e) => {
+                setCampaginData({
+                  ...campaignData,
+                  campaignUrl: e.target.value,
+                });
+              }}
+            />
+          </div>
+
           <div>
             <label>Category </label>
             <select

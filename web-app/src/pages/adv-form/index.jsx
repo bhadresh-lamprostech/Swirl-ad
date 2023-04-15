@@ -10,7 +10,7 @@ import { Web3Storage } from "web3.storage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Swirl_address = "0x32158bdCEC4F45687365a6cC9F291635Daf8b32B";
+const Swirl_address = "0xDA1d6646947D960e187Da191C8ADAdfA18Cb8C3f";
 
 function AdvForm() {
   const toastInfo = () =>
@@ -30,8 +30,6 @@ function AdvForm() {
     orgFounder: null,
     orgCategory: null,
   });
-
-  
 
   const [cid, setCid] = useState("");
   const { address } = useAccount();

@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import styles from "../../styles/all-campaign.module.scss";
 
-const Swirl_address = "0x32158bdCEC4F45687365a6cC9F291635Daf8b32B";
+const Swirl_address = "0xDA1d6646947D960e187Da191C8ADAdfA18Cb8C3f";
 
 function AllCampaigns() {
   const [campaigns, setCampaigns] = useState([]);
@@ -31,12 +31,8 @@ function AllCampaigns() {
             const formattedCampaignsData = campaignsData.map((campaign) => {
               return {
                 ...campaign,
-                balance: ethers.utils.formatEther(
-                  campaign.balance || 0
-                ),
-                budget: ethers.utils.formatEther(
-                  campaign.budget || 0
-                ),
+                balance: ethers.utils.formatEther(campaign.balance || 0),
+                budget: ethers.utils.formatEther(campaign.budget || 0),
                 payclick: campaign.payclick || 0,
               };
             });

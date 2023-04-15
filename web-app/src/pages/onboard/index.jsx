@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { ethers } from "ethers";
 import { Web3Storage } from "web3.storage";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
-const Swirl_address = "0x32158bdCEC4F45687365a6cC9F291635Daf8b32B";
+const Swirl_address = "0xDA1d6646947D960e187Da191C8ADAdfA18Cb8C3f";
 
 export default function Onboard() {
   const { isConnected, address } = useAccount();

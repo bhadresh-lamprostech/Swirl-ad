@@ -11,7 +11,7 @@ function GetCampaigns() {
     async function fetchCampaigns() {
       try {
         const response = await axios.get(
-          "https://swirl-ad.vercel.app/api/getcampaign"
+          "http://localhost:3000/api/getcampaign"
         );
         console.log(response.data.campaigns);
         // for (let i = 0; i < response.data.campaigns; i++) {

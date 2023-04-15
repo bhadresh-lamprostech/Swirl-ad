@@ -1,20 +1,21 @@
 const { connectToDatabase } = require("./mongodb");
-const { v4: uuidv4 } = require("uuid");
+// const { v4: uuidv4 } = require("uuid");
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
     const { db } = await connectToDatabase();
     const collection = db.collection("campaigns");
-
+    const campaignId = req.body.campaignId;
     const advertiserId = req.body.advertiserId;
     const balance = req.body.balance;
     const campaignName = req.body.campaignName;
     const budget = req.body.budget;
     const category = req.body.category;
+    const campaignUrl = req.body.campaignUrl;
     const payclick = req.body.payclick;
     const stringCID = req.body.stringCID;
 
-    const campaignId = uuidv4(); // Generate a UUID for the campaign
+    // const campaignId = uuidv4(); // Generate a UUID for the campaign
 
     try {
       await collection.insertOne({
@@ -26,6 +27,7 @@ export default async function handler(req, res) {
         category,
         payclick,
         stringCID,
+        campaignUrl,
       });
       res.status(200).json({ message: "Campaign created successfully" });
     } catch (error) {

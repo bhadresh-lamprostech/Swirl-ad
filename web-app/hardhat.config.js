@@ -21,6 +21,12 @@ module.exports = {
       url: "https://matic-mumbai.chainstacklabs.com", // Your RPC url
       accounts: [`0x${POLYGON_PVTKEY}`], // yout private key
     },
+
+    Bttc: {
+      chainId: 1029,
+      url: "https://pre-rpc.bt.io/", // Your RPC url
+      accounts: [`0x${POLYGON_PVTKEY}`], // yout private key
+    },
     // goerli: {
     //   chainId: 05,
     //   url: "", // your RPC URl

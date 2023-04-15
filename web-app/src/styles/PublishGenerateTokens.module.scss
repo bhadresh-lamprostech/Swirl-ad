@@ -51,7 +51,25 @@
     margin-left: 40%;
   }
 
-  .genBtn:hover {
-    // background-color: var(--pink);
+  .tokenbtn {
+    margin: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: capitalize;
+    background-color: var(--yellow);
+  }
+  .spantoken {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .tokenmain {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 }
