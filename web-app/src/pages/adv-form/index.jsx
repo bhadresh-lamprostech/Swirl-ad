@@ -179,7 +179,7 @@ function AdvForm() {
             />
           </div>
           <div className={styles.otherDivs}>
-            <label htmlFor="orgname">Name</label>
+            <label htmlFor="orgname">Firm Name</label>
             <input
               type="text"
               id="orgname"

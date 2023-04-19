@@ -30,7 +30,7 @@ export default function Onboard() {
           );
           return contract;
         } else {
-          alert("Please connect to the BTTC Testnet testnet Network!");
+          alert("Please connect to the BTTC Test Network!");
         }
       }
       console.log(signer);
@@ -55,6 +55,7 @@ export default function Onboard() {
         null;
       }
       console.log(getAdv);
+
     })();
   }, []);
 
