@@ -3,7 +3,7 @@ import { useAccount } from "wagmi";
 import { ethers } from "ethers";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import styles from "../../styles/profile.module.scss";
-
+import AdvLayout from "@/Components/AdvLayout";
 const Swirl_address = "0xDA1d6646947D960e187Da191C8ADAdfA18Cb8C3f";
 
 const Profile = () => {
@@ -73,34 +73,36 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className={styles.pcontainer}>
-      <div className={styles.profile}>
-        <div className={styles.header}>
-          <img
-            src={"https://" + `${data.orgLogo}` + ".ipfs.w3s.link"}
-            alt={`${data.orgname} Logo`}
-          />
-          <h2>{data.orgUsername}</h2>
-          <h1>{data.orgname}</h1>
-          <p>{data.orgdiscription}</p>
-        </div>
-        <div className={styles.aboutS}>
-          <div className={styles.info}>
-            <h2>About {data.orgname}</h2>
+    <AdvLayout>
+      <div className={styles.pcontainer}>
+        <div className={styles.profile}>
+          <div className={styles.header}>
+            <img
+              src={"https://" + `${data.orgLogo}` + ".ipfs.w3s.link"}
+              alt={`${data.orgname} Logo`}
+            />
+            <h2>{data.orgUsername}</h2>
+            <h1>{data.orgname}</h1>
             <p>{data.orgdiscription}</p>
-            <p>
-              Founded by {data.orgFounder} in {data.orgOrigin}
-            </p>
-            <p>Category: {data.orgCatagory}</p>
-            <p>Number of employees: {data.empstrength}</p>
           </div>
-          <div className={styles.balanceA}>
-            <h2>Balance</h2>
-            <p>{data.balance}</p>
+          <div className={styles.aboutS}>
+            <div className={styles.info}>
+              <h2>About {data.orgname}</h2>
+              <p>{data.orgdiscription}</p>
+              <p>
+                Founded by {data.orgFounder} in {data.orgOrigin}
+              </p>
+              <p>Category: {data.orgCatagory}</p>
+              <p>Number of employees: {data.empstrength}</p>
+            </div>
+            <div className={styles.balanceA}>
+              <h2>Balance</h2>
+              <p>{data.balance}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </AdvLayout>
   );
 };
 

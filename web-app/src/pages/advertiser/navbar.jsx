@@ -31,6 +31,11 @@ function Navbar() {
                   Add Campaign
                 </li>
               </Link>
+              {/* <Link href="/advertiser/profile">
+                <li className={router.asPath === "/advertiser/profile" ? styles.Active : null}>
+                  Profile
+                </li>
+              </Link> */}
               {/* <Link href="/advertiser/published-campaign">
                 <li className={router.asPath === "/advertiser/published-campaign" ? styles.Active : null}>
                   Published Campaign
