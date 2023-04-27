@@ -1,5 +1,4 @@
 const { connectToDatabase } = require("./mongodb");
-const { MongoClient } = require("mongodb");
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -32,7 +31,7 @@ export default async function handler(req, res) {
     const token = generateToken();
 
     try {
-      await collection.insertOne({ walletAddress, token, category });
+      await collection.insertOne({ walletAddress, token, category, clicks: 0, amount: 0 });
       res.status(200).json({ token });
     } catch (error) {
       console.error(error);

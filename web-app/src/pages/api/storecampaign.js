@@ -7,13 +7,14 @@ export default async function handler(req, res) {
     const collection = db.collection("campaigns");
     const campaignId = req.body.campaignId;
     const advertiserId = req.body.advertiserId;
-    const balance = req.body.balance;
+    const balance = req.body.budget;
     const campaignName = req.body.campaignName;
-    const budget = req.body.budget;
+    const budget = Number(req.body.budget);
     const category = req.body.category;
     const campaignUrl = req.body.campaignUrl;
-    const payclick = req.body.payclick;
+    const payclick = Number(req.body.payclick);
     const stringCID = req.body.stringCID;
+    const isActive = true;
 
     // const campaignId = uuidv4(); // Generate a UUID for the campaign
 
@@ -28,6 +29,7 @@ export default async function handler(req, res) {
         payclick,
         stringCID,
         campaignUrl,
+        isActive
       });
       res.status(200).json({ message: "Campaign created successfully" });
     } catch (error) {
