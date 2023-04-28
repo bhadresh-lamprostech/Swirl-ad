@@ -142,7 +142,7 @@ export default function Advertiser() {
     // console.log(parseInt(sigleCampaign));
     console.log(sigleCampaign);
     const index3Array = sigleCampaign.map((arr) => arr[2]);
-    console.log(parseInt(index3Array[0]["_hex"]));
+    console.log(parseInt(index3Array[0] ? index3Array[0]["_hex"]:""));
 
     let sum = 0;
     for (let i = 0; i < index3Array.length; i++) {
