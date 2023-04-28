@@ -5,7 +5,7 @@ import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import styles from "../../styles/profile.module.scss";
 import AdvLayout from "@/Components/AdvLayout";
 
-const Swirl_address = "0xCbf927f2B289B5F35Abc34202887a68AE7109209";
+const Swirl_address = "0x454688D0efe4853479d14Ddba9d1d08135e8E486";
 
 const Profile = () => {
     const { address } = useAccount();
