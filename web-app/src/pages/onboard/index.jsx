@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { ethers } from "ethers";
 import { Web3Storage } from "web3.storage";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
-const Swirl_address = "0xCbf927f2B289B5F35Abc34202887a68AE7109209";
+const Swirl_address = "0x454688D0efe4853479d14Ddba9d1d08135e8E486";
 
 export default function Onboard() {
   const { isConnected, address } = useAccount();
@@ -33,7 +33,7 @@ export default function Onboard() {
           alert("Please connect to the BTTC Test Network!");
         }
       }
-      console.log(signer);
+      console.log(contract);
     } catch (error) {
       console.log(error);
     }
@@ -49,6 +49,7 @@ export default function Onboard() {
       const contract = await getContract();
       console.log(contract);
       const getAdv = await contract.getAdvertiser(address);
+      console.log(getAdv);
       if (getAdv[1] === address) {
         Route.push("/advertiser");
       } else {
