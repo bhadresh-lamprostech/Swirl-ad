@@ -103,6 +103,7 @@ const CampaignList = ({ token }) => {
       const response = await axios.request(config);
       console.log(response.data);
       setLastClick({ ipAddress: ipAddress, timestamp: new Date() });
+      window.open(campaigns.campaignUrl,"_blank");
     } catch (error) {
       console.log(error);
     }
