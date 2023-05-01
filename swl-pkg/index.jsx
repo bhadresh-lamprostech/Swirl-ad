@@ -4,7 +4,7 @@ import { server } from "./serverAddr";
 
 const CampaignList = ({ token }) => {
   const [campaigns, setCampaigns] = useState([]);
-  const [clickCount, setClickCount] = useState(0);
+  // const [clickCount, setClickCount] = useState(0);
   const [lastClick, setLastClick] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -21,7 +21,7 @@ const CampaignList = ({ token }) => {
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'http://localhost:3000/api/campaignbytoken',
+        url: `${server}/campaignbytoken`,
         headers: { 
           'Content-Type': 'application/json'
         },
@@ -47,7 +47,7 @@ const CampaignList = ({ token }) => {
         let config = {
           method: 'get',
           maxBodyLength: Infinity,
-          url: 'http://localhost:3000/api/updateinsights',
+          url: `${server}/updateinsights`,
           headers: { 
             'Content-Type': 'application/json'
           },
@@ -58,6 +58,7 @@ const CampaignList = ({ token }) => {
         .then((response) => {
           // console.log(JSON.stringify(response.data));
           console.log("Insights recorded");
+          setLoading(false)
         })
         .catch((error) => {
           console.log(error);
@@ -65,6 +66,7 @@ const CampaignList = ({ token }) => {
       }  
     }
   }, [token]);
+
 
   const handleClick = async () => {
     // Get user's IP address
@@ -92,7 +94,7 @@ const CampaignList = ({ token }) => {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://localhost:3000/updateuserclicks',
+      url: `${server}/updateuserclicks`,
       headers: { 
         'Content-Type': 'application/json'
       },

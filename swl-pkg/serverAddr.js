@@ -1,1 +1,1 @@
-export const server = "https://swirl-ad.vercel.app/api/"
+export const server = "https://swirl-ad.vercel.app/api"
