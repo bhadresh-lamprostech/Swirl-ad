@@ -5,11 +5,12 @@ import axios from "axios";
 import { useAccount } from "wagmi";
 import { ethers } from "ethers";
 import { Web3Storage } from "web3.storage";
+import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 
-const Swirl_address = "0x454688D0efe4853479d14Ddba9d1d08135e8E486";
+const Swirl_address = "0xD0102c95fBa57bec725717b9341099dA114576C5";
 
 function PubForm() {
   const [formData, setFormData] = useState({
@@ -24,6 +25,7 @@ function PubForm() {
   });
   const { address } = useAccount();
   const [countries, setCountries] = useState([]);
+  const route = useRouter();
 
   useEffect(() => {
     axios.get("https://countriesnow.space/api/v0.1/countries/").then((res) => {
@@ -35,9 +37,6 @@ function PubForm() {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
   const [cid, setCid] = useState("");
 
   useEffect(() => {
@@ -81,22 +80,26 @@ function PubForm() {
 
   const submitData = async () => {
     try {
-      const contract = await getContract();
-      const tx = await contract.createPublisher(
-        address,
-        formData.orgUsername,
-        formData.orgName,
-        // formData.orgLogo,
-        cid,
-        formData.orgDescription,
-        formData.orgOrigin,
-        formData.orgEmpStrength,
-        formData.orgFounder,
-        formData.orgCategory
-      );
-      await tx.wait();
-      console.log(tx);
-      route.push("/publisher");
+      if (cid) {
+        const contract = await getContract();
+        const tx = await contract.createPublisher(
+          address,
+          formData.orgUsername,
+          formData.orgName,
+          // formData.orgLogo,
+          cid,
+          formData.orgDescription,
+          formData.orgOrigin,
+          formData.orgEmpStrength,
+          formData.orgFounder,
+          formData.orgCategory
+        );
+        await tx.wait();
+        console.log(tx);
+        if (tx) {
+          route.push("/publisher");
+        }
+      }
     } catch (error) {
       console.log(error);
     }
@@ -176,12 +179,12 @@ function PubForm() {
               <option value="">----- Select a Country -----</option>
               {countries.length > 0
                 ? countries.map((i, index) => {
-                    return (
-                      <option value={i} key={index}>
-                        {i}
-                      </option>
-                    );
-                  })
+                  return (
+                    <option value={i} key={index}>
+                      {i}
+                    </option>
+                  );
+                })
                 : null}
             </select>
           </div>

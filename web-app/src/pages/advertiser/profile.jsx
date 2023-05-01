@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import styles from "../../styles/profile.module.scss";
 import AdvLayout from "@/Components/AdvLayout";
-const Swirl_address = "0x454688D0efe4853479d14Ddba9d1d08135e8E486";
+const Swirl_address = "0xD0102c95fBa57bec725717b9341099dA114576C5";
 
 const Profile = () => {
   const { address } = useAccount();

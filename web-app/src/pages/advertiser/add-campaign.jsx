@@ -2,14 +2,15 @@ import React from "react";
 import AdvLayout from "../../Components/AdvLayout";
 import styles from "@/styles/add-campaign.module.scss";
 import { useState, useEffect } from "react";
-import { useAccount, useSigner } from "wagmi";
+import { useAccount } from "wagmi";
 import { ethers } from "ethers";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import { Web3Storage } from "web3.storage";
 
-const Swirl_address = "0x454688D0efe4853479d14Ddba9d1d08135e8E486";
+const Swirl_address = "0xD0102c95fBa57bec725717b9341099dA114576C5";
 
 function AddCampaign() {
   const [campaignData, setCampaginData] = useState({
@@ -20,6 +21,11 @@ function AddCampaign() {
     campaignCategory: null,
     campaignUrl: null,
   });
+
+  const toastInfo = () =>
+    toast.info("Campaign created successfully...");
+  const txError = () =>
+    toast.error("oh no.. your transection was unsuccessful");
 
   const { address } = useAccount();
   const client = new Web3Storage({
@@ -90,9 +96,8 @@ function AddCampaign() {
     const apiUrl = "http://localhost:3000/api/storecampaign";
     console.log(cid);
     const data = JSON.stringify({
-      campainId: camId,
       advertiserId: address,
-      // balance: 0,
+      balance: 0,
       campaignName: campaignData.campaignName,
       budget: campaignData.campaignBudget,
       category: campaignData.campaignCategory,
@@ -126,45 +131,49 @@ function AddCampaign() {
     await UploadImage();
     try {
       console.log(address);
-      const contract = await getContract();
-      const tx = await contract.createCampaign(
-        address,
-        ethers.utils.parseEther(campaignData.campaignBudget.toString()),
-        campaignData.campaignName,
-        campaignData.campaignCategory,
-        campaignData.campaignPpckick,
-        cid
-      );
+      if (cid) {
+        const contract = await getContract();
+        const tx = await contract.createCampaign(
+          address,
+          ethers.utils.parseEther(campaignData.campaignBudget.toString()),
+          campaignData.campaignName,
+          campaignData.campaignCategory,
+          campaignData.campaignPpckick,
+          cid
+        );
 
-      await tx.wait();
+        await tx.wait();
 
-      const id = await contract.getCurrentId();
-      console.log(parseInt(id));
+        const id = await contract.getCurrentId();
+        console.log(parseInt(id));
 
-      setCamId(parseInt(id));
+        setCamId(parseInt(id));
 
-      // const { campaignCounter } = await contract.createCampaign(
-      //   address,
-      //   ethers.utils.parseEther(campaignData.campaignBudget.toString()),
-      //   campaignData.campaignName,
-      //   campaignData.campaignCategory,
-      //   campaignData.campaignPpckick,
-      //   cid
-      // );
-      // const receipt = await tx.wait();
-      // const returnValue = receipt.logs[0].data;
-      // console.log("Return value (hex):", returnValue);
+        // const { campaignCounter } = await contract.createCampaign(
+        //   address,
+        //   ethers.utils.parseEther(campaignData.campaignBudget.toString()),
+        //   campaignData.campaignName,
+        //   campaignData.campaignCategory,
+        //   campaignData.campaignPpckick,
+        //   cid
+        // );
+        // const receipt = await tx.wait();
+        // const returnValue = receipt.logs[0].data;
+        // console.log("Return value (hex):", returnValue);
 
-      // const decodedValue = ethers.utils.defaultAbiCoder.decode(
-      //   ["uint256"],
-      //   returnValue
-      // )[0];
-      // console.log("Return value (decimal):", decodedValue.toString());
+        // const decodedValue = ethers.utils.defaultAbiCoder.decode(
+        //   ["uint256"],
+        //   returnValue
+        // )[0];
+        // console.log("Return value (decimal):", decodedValue.toString());
 
-      // console.log(tx);
-      uploadDb();
+        // console.log(tx);
+        uploadDb();
+        toastInfo();
+      }
     } catch (error) {
       console.log(error);
+      txError();
     }
   };
 
@@ -296,6 +305,19 @@ function AddCampaign() {
           </button> */}
         </div>
       </div>
+      <ToastContainer
+          ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        ></ToastContainer>
     </AdvLayout>
   );
 }

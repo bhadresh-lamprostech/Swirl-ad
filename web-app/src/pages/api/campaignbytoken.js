@@ -6,19 +6,13 @@ const cors = Cors({
 });
 
 export default async function handler(req, res) {
-  await new Promise((resolve, reject) => {
-    cors(req, res, (err) => {
-      if (err) return reject(err);
-      resolve();
-    });
-  });
 
   if (req.method === "GET") {
     const { db } = await connectToDatabase();
     const collection = db.collection("campaigns");
 
     try {
-      const { token } = req.query;
+      const { token } = req.body;
       console.log(token);
       const tokenCollection = db.collection("tokens");
       console.log(tokenCollection);

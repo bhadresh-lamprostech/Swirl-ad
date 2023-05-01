@@ -6,7 +6,7 @@ import SwirlABI from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import axios from "axios";
 import { useAccount } from "wagmi";
 
-const Swirl_address = "0x454688D0efe4853479d14Ddba9d1d08135e8E486";
+const Swirl_address = "0xD0102c95fBa57bec725717b9341099dA114576C5";
 
 function GenerateToken() {
   const { address } = useAccount();

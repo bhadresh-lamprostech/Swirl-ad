@@ -10,7 +10,7 @@ import { Web3Storage } from "web3.storage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Swirl_address = "0x454688D0efe4853479d14Ddba9d1d08135e8E486";
+const Swirl_address = "0xD0102c95fBa57bec725717b9341099dA114576C5";
 
 function AdvForm() {
   const toastInfo = () =>
@@ -96,26 +96,28 @@ function AdvForm() {
 
   const submitData = async () => {
     try {
-      console.log(cid);
-      const contract = await getContract();
-      const tx = await contract.createAdvertiser(
-        address,
-        formData.orgUsername,
-        formData.orgName,
-        // formData.orgLogo,
-        cid,
-        formData.orgDescription,
-        formData.orgOrigin,
-        formData.orgEmpStrength,
-        formData.orgFounder,
-        formData.orgCategory
-      );
-      await tx.wait();
-      toastInfo();
+      if (cid) {
+        console.log(cid);
+        const contract = await getContract();
+        const tx = await contract.createAdvertiser(
+          address,
+          formData.orgUsername,
+          formData.orgName,
+          // formData.orgLogo,
+          cid,
+          formData.orgDescription,
+          formData.orgOrigin,
+          formData.orgEmpStrength,
+          formData.orgFounder,
+          formData.orgCategory
+        );
+        await tx.wait();
+        toastInfo();
 
-      console.log(tx);
+        console.log(tx);
 
-      route.push("/advertiser");
+        route.push("/advertiser");
+      }
     } catch (error) {
       txError();
       console.log(error);
@@ -210,12 +212,12 @@ function AdvForm() {
               <option value="">----- Select a Country -----</option>
               {countries.length > 0
                 ? countries.map((i, index) => {
-                    return (
-                      <option value={i} key={index}>
-                        {i}
-                      </option>
-                    );
-                  })
+                  return (
+                    <option value={i} key={index}>
+                      {i}
+                    </option>
+                  );
+                })
                 : null}
             </select>
           </div>
