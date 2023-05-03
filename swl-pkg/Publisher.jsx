@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { server } from "./serverAddr";
 
-function Publisher({ token }) {
+export const Publisher = ({ token }) => {
   const [campaigns, setCampaigns] = useState([]);
   // const [clickCount, setClickCount] = useState(0);
   const [lastClick, setLastClick] = useState(null);
@@ -112,7 +112,7 @@ function Publisher({ token }) {
   };
 
   return (
-    <div>
+    <>
       {
         loading
         ?
@@ -132,8 +132,6 @@ function Publisher({ token }) {
           }
         </div>
       }
-    </div>
+    </>
   );
 };
-
-export default Publisher;

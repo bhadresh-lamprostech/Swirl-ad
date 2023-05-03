@@ -32,7 +32,7 @@ export default function Home() {
           />
         </div>
         <div className={styles.btn}>
-          <button className={styles.cntBtn}><a href="https://swirl.gitbook.io/product-docs/" target={"__blank"}>Docs</a></button>
+          <button className={styles.cntBtn}><a href="https://swirl.gitbook.io/product-docs" target={"__blank"}>Docs</a></button>
           <ConnectButtonCustom />
         </div>
       </nav>
@@ -66,10 +66,11 @@ export default function Home() {
               How SWIRL is going to benefit Advertisers?
             </div>
             <div className={styles.description}>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam
-              ipsa eligendi aut architecto, quos quidem reiciendis perspiciatis
-              nisi optio possimus excepturi, itaque obcaecati voluptatem nihil
-              assumenda quam doloremque ratione praesentium.
+              SWIRL, as a decentralised advertising platform, offers several benefits for advertisers, 
+              such as increased engagement, improved brand awareness, enhanced customer experience, more 
+              effective targeting, and increased sales. Additionally, as a decentralised platform, SWIRL can 
+              provide advertisers with greater transparency, control, and security over their ad campaigns, 
+              ensuring that their ads are reaching the right audience and delivering the desired results.
             </div>
             <div className={styles.kBtn}>
               <button className={styles.knowMore}>KNOW MORE</button>
@@ -84,10 +85,11 @@ export default function Home() {
               How SWIRL is going to benefit Publishers?
             </div>
             <div className={styles.description}>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam
-              ipsa eligendi aut architecto, quos quidem reiciendis perspiciatis
-              nisi optio possimus excepturi, itaque obcaecati voluptatem nihil
-              assumenda quam doloremque ratione praesentium.
+              SWIRL's innovative advertising format allows publishers to create more engaging 
+              and interactive ads that can lead to higher engagement rates and better user experience. 
+              Additionally, Swirl's decentralised nature can help publishers to monetize their content without 
+              relying on third-party intermediaries, providing them with greater autonomy and flexibility in 
+              managing their ad inventory.
             </div>
             <div className={styles.kBtn}>
               <button className={styles.knowMore}>KNOW MORE</button>

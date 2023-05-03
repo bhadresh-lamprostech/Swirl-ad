@@ -217,7 +217,7 @@
 }
 
 .advSection .advRight .description {
-  width: 523px;
+  width: 550px;
   height: 175px;
   font-family:var(--font2-light);
   font-style: normal;
@@ -241,6 +241,7 @@
   color: #ffffff;
   border: 1px solid var(--yellow);
   cursor: pointer;
+  margin-top: 200px;
 }
 
 .pubSection {
@@ -314,7 +315,7 @@
 }
 
 .pubSection .pubRight .description {
-  width: 523px;
+  width: 550px;
   height: 175px;
 
   font-family: var(--font2-light);
@@ -341,6 +342,7 @@
   color: #ffffff;
   border: 1px solid var(--yellow);
   cursor: pointer;
+  margin-top: 130px;
 }
 
 .footer {

@@ -32,7 +32,7 @@ function Navbar() {
                   Generate Token
                 </li>
               </Link>
-              <a href="https://swirl.gitbook.io/product-docs/" target={"__blank"}>
+              <a href="https://swirl.gitbook.io/product-docs/product-guides/for-publisher" target={"__blank"}>
                 <li className={router.asPath === "/publisher/docs" ? styles.Active : null}>
                   Docs
                 </li>

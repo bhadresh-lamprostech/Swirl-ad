@@ -1,8 +1,14 @@
 {
-  "name": "swirl-pkg",
-  "version": "1.1.2",
+  "name": "swl-pkg",
+  "version": "1.1.8",
   "description": "",
-  "main": "index.js",
+  "main": "index.jsx",
+  "type": "module",
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
