@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     const collection = db.collection("campaigns");
 
     try {
-      const { token } = req.query;
+      const { token } = req.body;
       console.log(token);
       const tokenCollection = db.collection("tokens");
       console.log(tokenCollection);
