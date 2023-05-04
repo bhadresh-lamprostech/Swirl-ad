@@ -6,13 +6,19 @@ const cors = Cors({
 });
 
 export default async function handler(req, res) {
+  await new Promise((resolve, reject) => {
+    cors(req, res, (err) => {
+      if (err) return reject(err);
+      resolve();
+    });
+  });
 
   if (req.method === "GET") {
     const { db } = await connectToDatabase();
     const collection = db.collection("campaigns");
 
     try {
-      const { token } = req.body;
+      const { token } = req.query;
       console.log(token);
       const tokenCollection = db.collection("tokens");
       console.log(tokenCollection);
@@ -34,12 +40,14 @@ export default async function handler(req, res) {
         .toArray();
       console.log(campaigns);
 
+      res.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins
       res.status(200).json({ campaigns });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Error retrieving campaigns" });
     }
   } else {
+    res.setHeader("Allow", "GET");
     res.status(405).json({ error: "Method not allowed" });
   }
 }
