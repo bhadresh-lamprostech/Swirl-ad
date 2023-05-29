@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 import styles from "../../styles/all-campaign.module.scss";
 
-const Swirl_address = "0xD0102c95fBa57bec725717b9341099dA114576C5";
+const Swirl_address = "0xbAfFe333fb9D5d5bb51875C7910240c705ADB3c0";
 
 function AllCampaigns() {
   const [campaigns, setCampaigns] = useState([]);
@@ -20,7 +20,7 @@ function AllCampaigns() {
           }
           const { chainId } = await provider.getNetwork();
           console.log("switch case for this case is: " + chainId);
-          if (chainId === 1029) {
+          if (chainId === 199) {
             const contract = new ethers.Contract(
               Swirl_address,
               Swirl.abi,
@@ -39,7 +39,7 @@ function AllCampaigns() {
 
             setCampaigns(formattedCampaignsData);
           } else {
-            alert("Please connect to the BTTC Testnet testnet Network!");
+            alert("Please connect to the BTTCnet Network!");
           }
         }
         console.log(signer);

@@ -10,7 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swirl from "../../artifacts/contracts/Swirl.sol/Swirl.json";
 
-const Swirl_address = "0xD0102c95fBa57bec725717b9341099dA114576C5";
+const Swirl_address = "0xbAfFe333fb9D5d5bb51875C7910240c705ADB3c0";
 
 function PubForm() {
   const [formData, setFormData] = useState({
@@ -60,7 +60,7 @@ function PubForm() {
         }
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
-        if (chainId === 1029) {
+        if (chainId === 199) {
           const contract = new ethers.Contract(
             Swirl_address,
             Swirl.abi,
@@ -68,7 +68,7 @@ function PubForm() {
           );
           return contract;
         } else {
-          alert("Please connect to the BTTC Testnet testnet Network!");
+          alert("Please connect to the BTTCnet Network!");
         }
       }
       console.log(signer);

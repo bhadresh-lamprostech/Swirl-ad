@@ -9,7 +9,7 @@ contract Swirl {
         uint256 balance;
         uint256 currentBalance; //new added
         string  orgUsername;
-        string  orgname;
+        string  orgname;    
         string  orgLogo;
         string  orgdiscription;
         string  orgOrigin;
@@ -35,6 +35,7 @@ struct Publisher {
         uint256 id;
         uint256 advertiserId;
         uint256 balance;
+        uint256 platformFee;
         string  campaignName;
         string  budget;
         string  payclick;
@@ -48,6 +49,18 @@ struct Publisher {
     uint256 private advertiserCounter;
     uint256 private campaignCounter;
     uint256 private publisherCounter;
+
+    address private owner; // contract owner address
+
+     constructor() {
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only contract owner can call this function");
+        _;
+    }
+
 
    function createAdvertiser(address _wallet,string memory _orgUsername, string memory _orgname, string memory _orgLogo, string memory _orgdiscription, string memory _orgOrigin, string memory _empstrength, string memory _orgFounder, string memory _orgCatagory) public returns(uint){
     require(advertiserExists(_wallet) == false, "Advertiser already exists");
@@ -158,23 +171,51 @@ function getPublisher(address _wallet) public view returns (Publisher memory) {
    
 }
 
-function createCampaign(address _advertiserAddress, uint256 _balance, string memory _campaignName, string memory _budget, string memory _payclick, string memory _stringCID) public returns(uint){
-    require(advertiserExists(_advertiserAddress) == true, "Advertiser does not exist");
-    uint256 advertiserId;
-    for (uint256 i = 1; i <= advertiserCounter; i++) {
-        if (advertisers[i].wallet == _advertiserAddress) {
-            advertiserId = i;
-            break;
+  function createCampaign(
+        address _advertiserAddress,
+        uint256 _balance,
+        string memory _campaignName,
+        string memory _budget,
+        string memory _payclick,
+        string memory _stringCID
+    ) public returns (uint256) {
+        require(advertiserExists(_advertiserAddress) == true, "Advertiser does not exist");
+        uint256 advertiserId;
+        for (uint256 i = 1; i <= advertiserCounter; i++) {
+            if (advertisers[i].wallet == _advertiserAddress) {
+                advertiserId = i;
+                break;
+            }
         }
+
+        require(advertisers[advertiserId].currentBalance >= _balance, "Balance of advertiser is not enough"); //new added
+
+        campaignCounter++;
+        uint256 platformFee = (_balance * 10) / 100; // Calculate platform fee (10% of campaign balance)
+        uint256 campaignBalance = _balance - platformFee; // Deduct platform fee from campaign balance
+        campaigns[campaignCounter] = Campaign(
+            campaignCounter,
+            advertiserId,
+            campaignBalance,
+            platformFee,
+            _campaignName,
+            _budget,
+            _payclick,
+            _stringCID
+        );
+        advertisers[advertiserId].balance -= _balance;
+        return (campaignCounter);
     }
 
-    require(advertisers[advertiserId].currentBalance >= _balance, "Balance of advertiser is not enough"); //new added
-
-    campaignCounter++;
-    campaigns[campaignCounter] = Campaign(campaignCounter, advertiserId, _balance, _campaignName, _budget, _payclick, _stringCID);
-    advertisers[advertiserId].balance -= _balance;
-    return(campaignCounter);
-}
+     function withdrawPlatformFees() public onlyOwner {
+        uint256 platformFees = 0;
+        for (uint256 i = 1; i <= campaignCounter; i++) {
+            platformFees += campaigns[i].platformFee;
+            campaigns[i].platformFee = 0; // Reset platform fee for the campaign
+        }
+        require(platformFees > 0, "No platform fees available for withdrawal");
+        payable(owner).transfer(platformFees);
+    }
     function getCurrentId() public view returns(uint)
     {
     return campaignCounter;
